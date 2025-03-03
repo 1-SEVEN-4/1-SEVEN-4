@@ -3,11 +3,12 @@
   "rules": {
     "import/extensions": "off",
     "no-console": "off",
+    "semi": ["error", "always"],
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
-        "semi": false,
+        "semi": true,
         "trailingComma": "all",
         "bracketSpacing": true,
         "arrowParens": "avoid",
