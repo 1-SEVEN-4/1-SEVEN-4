@@ -1,18 +1,18 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { validationLoginCondition, confirmLoginInfo } from './confirmLogin.js';
+import { validateLoginCondition, validateLoginInfo } from './validateLogin.js';
 
 const prisma = new PrismaClient();
 const memberRouter = express.Router();
 
-memberRouter.route('/').post(validationLoginCondition(), async (req, res) => {
+memberRouter.route('/').post(validateLoginCondition(), async (req, res) => {
   const member = await prisma.member.create({
     data: req.body,
   });
   res.status(201).send(member);
 });
 
-memberRouter.route('/:id').delete(confirmLoginInfo(), async (req, res) => {
+memberRouter.route('/:id').delete(validateLoginInfo(), async (req, res) => {
   const { id } = req.params;
 
   await prisma.member.delete({
