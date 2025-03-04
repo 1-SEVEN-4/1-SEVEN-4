@@ -12,3 +12,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Group {
+  id             String   @id @default(uuid())
+  groupName      String
+  nickName       String
+  description    String
+  password       String
+  photo          String?
+  tag            String?
+  goalCount      String
+  discordURL     String
+  invitationURL  String
+  recommendation Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

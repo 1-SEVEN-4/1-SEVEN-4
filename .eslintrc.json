@@ -3,6 +3,7 @@
   "rules": {
     "import/extensions": "off",
     "no-console": "off",
+    "semi": ["error", "always"],
     "prettier/prettier": [
       "error",
       {
