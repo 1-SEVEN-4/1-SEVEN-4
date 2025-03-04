@@ -5,17 +5,17 @@ const prisma = new PrismaClient();
 export function validateLoginCondition() {
   return async (req, res, next) => {
     try {
-      const regexNickname = /^[A-Za-z0-9]{4,12}$/;
-      const regexPassword =
+      const regExpNickname = /^[A-Za-z0-9]{4,12}$/;
+      const regExpPassword =
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{4,16}$/;
 
       const { memberNickname, memberPassword } = await req.body;
 
-      if (!regexNickname.test(memberNickname)) {
+      if (!regExpNickname.test(memberNickname)) {
         return res.status(400).json({ message: '닉네임이 유효하지 않습니다.' });
       }
 
-      if (!regexPassword.test(memberPassword)) {
+      if (!regExpPassword.test(memberPassword)) {
         return res
           .status(400)
           .json({ message: '비밀번호가 유효하지 않습니다.' });
