@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export function validateLoginCondition() {
   return async (req, res, next) => {
     try {
-      const regExpNickname = /^[A-Za-z0-9]{4,12}$/;
+      const regExpNickname = /^[A-Za-z0-9\uAC00-\uD7A3]{4,12}$/;
       const regExpPassword =
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{4,16}$/;
 
