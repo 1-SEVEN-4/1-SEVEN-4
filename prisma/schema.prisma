@@ -36,8 +36,8 @@ model Member {
   memberPassword String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  group          Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId        String
+  group          Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId        String?
   record         Record[]
 }
 
