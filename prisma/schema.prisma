@@ -14,40 +14,42 @@ datasource db {
 }
 
 model Group {
-  id                   String   @id @default(uuid())
-  groupName            String   @unique
-  groupNickname        String   @unique
-  groupPassword        String
-  description          String
-  groupPhoto           String
-  tags                 String?
-  goalCount            Int
-  discordWebhookURL    String
-  discordInvitationURL String
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  members              Member[]
-  records              Record[]
+  id            String   @id @default(uuid())
+  name          String   @unique
+  ownerNickname String   @unique
+  ownerPassword String
+  description   String
+  photo         String?
+  tags          String?
+  goalRep       Int
+  discordURL    String
+  invitationURL String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  memberCount   Int
+  likeCount     Int
+  members       Member[]
+  records       Record[]
 }
 
 model Member {
-  id             String   @id @default(uuid())
-  memberNickname String   @unique
-  memberPassword String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  groups         Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId        String?
-  records        Record[]
+  id        String   @id @default(uuid())
+  nickname  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  groups    Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String?
+  records   Record[]
 }
 
 model Record {
   id          String   @id @default(uuid())
   sports      Sports
   description String
-  timer       Int
+  time        Int
   distance    Int
-  recordPhoto String
+  photo       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
