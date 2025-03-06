@@ -24,6 +24,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "is-uuid": "^1.0.2",
+    "prisma": "^6.4.1",
     "superstruct": "^2.0.2"
   },
   "devDependencies": {
@@ -40,8 +41,7 @@
     "jest": "^29.7.0",
     "lint-staged": "^15.4.3",
     "nodemon": "^3.1.9",
-    "prettier": "^3.5.2",
-    "prisma": "^6.4.1"
+    "prettier": "^3.5.2"
   },
   "husky": {
     "hooks": {
@@ -53,8 +53,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-    "prisma": {
-      "schema": "prisma/schema.prisma"
   }
 }
