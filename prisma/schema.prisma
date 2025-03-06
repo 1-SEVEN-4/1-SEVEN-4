@@ -16,7 +16,7 @@ datasource db {
 model Group {
   id            String   @id @default(uuid()) @db.Uuid
   name          String
-  ownerNickName String
+  ownerNickname String
   ownerPassword String
   description   String
   photo         String?
