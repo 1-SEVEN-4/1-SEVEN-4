@@ -5,46 +5,91 @@ const prisma = new PrismaClient();
 const groupRoute = express.Router();
 
 groupRoute.route('/').get(async (req, res) => {
-  const { offset = 0, limit = 10, order = 'newest', search = '' } = req.query;
+  const {
+    page = 1,
+    limit = 10,
+    order = 'newest',
+    orderBy = 'createdAt',
+    search = '',
+  } = req.query;
 
-  let orderBy;
-  switch (order) {
-    case 'oldest':
-      orderBy = { createdAt: 'asc' };
-      break;
-    case 'newest':
-      orderBy = { createdAt: 'desc' };
-      break;
+  const validOrderBy = ['recommendation', 'participantCount', 'createdAt'];
+  if (!validOrderBy.includes(orderBy)) {
+    return res.status(400).send({
+      message: `The orderBy parameter must be one of the following values: ['recommendation', 'participantCount', 'createdAt'].`,
+    });
+  }
+
+  let orderByClause;
+  switch (orderBy) {
     case 'recommendation':
-      orderBy = { recommendation: 'desc' };
+      orderByClause = { likeCount: 'desc' };
       break;
-    case 'member':
-      orderBy = { _count: { member: 'desc' } };
+    case 'participantCount':
+      orderByClause = { memberCount: 'desc' };
+      break;
+    case 'createdAt':
+      orderByClause = { createdAt: 'desc' };
       break;
     default:
-      orderBy = { createdAt: 'desc' };
+      orderByClause = { createdAt: 'desc' };
   }
 
   const groups = await prisma.group.findMany({
     where: {
-      groupName: { contains: search, mode: 'insensitive' },
+      name: { contains: search, mode: 'insensitive' },
     },
     select: {
       id: true,
-      groupName: true,
-      nickName: true,
+      name: true,
+      ownerNickName: true,
+      description: true,
       photo: true,
-      tag: true,
-      goalCount: true,
-      recommendation: true,
-      _count: { select: { member: true } },
+      tags: true,
+      goalRep: true,
+      discordURL: true,
+      invitationURL: true,
+      likeCount: true,
+      createdAt: true,
+      updatedAt: true,
+      memberCount: true,
+      _count: { select: { Members: true } },
     },
-    orderBy,
-    skip: Number(offset),
+    orderBy: orderByClause,
+    skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
   });
 
-  res.status(200).send(groups);
+  const total = await prisma.group.count({
+    where: {
+      name: { contains: search, mode: 'insensitive' },
+    },
+  });
+
+  res.status(200).send({
+    data: groups.map(group => ({
+      id: group.id,
+      name: group.name,
+      description: group.description || '',
+      photoUrl: group.photo || '',
+      goalRep: group.goalRep,
+      discordWebhookUrl: group.discordURL,
+      discordInviteUrl: group.invitationURL,
+      likeCount: group.likeCount,
+      tags: group.tags || [],
+      owner: {
+        id: group.ownerNickName,
+        nickname: group.ownerNickName,
+        createdAt: group.createdAt ? group.createdAt.getTime() : null,
+        updatedAt: group.updatedAt ? group.updatedAt.getTime() : null,
+      },
+      participants: [],
+      createdAt: group.createdAt ? group.createdAt.getTime() : null,
+      updatedAt: group.updatedAt ? group.updatedAt.getTime() : null,
+      badges: [],
+    })),
+    total,
+  });
 });
 
 export default groupRoute;
