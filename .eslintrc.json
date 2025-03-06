@@ -2,12 +2,14 @@
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "rules": {
     "import/extensions": "off",
+    "import/prefer-default-export": false,
     "no-console": "off",
+    "semi": ["error", "always"],
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
-        "semi": false,
+        "semi": true,
         "trailingComma": "all",
         "bracketSpacing": true,
         "arrowParens": "avoid",
