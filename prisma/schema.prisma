@@ -16,25 +16,25 @@ datasource db {
 model Group {
   id             String   @id @default(uuid())
   groupName      String   @unique
-  NicKname       String   @unique
-  Password       String
+  nickName       String   @unique
+  password       String
   description    String?
-  Photo          String?
+  photo          String?
   tag            String?
   goalCount      Int
   recommendation Int
   discordURL     String
-  InvitationURL  String
+  invitationURL  String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  Member         Member[]
+  member         Member[]
   record         Record[]
 }
 
 model Member {
   id        String   @id @default(uuid())
-  Nickname  String   @unique
-  Password  String
+  nickName  String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   group     Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)

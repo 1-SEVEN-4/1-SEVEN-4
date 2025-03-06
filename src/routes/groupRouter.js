@@ -19,7 +19,7 @@ groupRoute.route('/').get(async (req, res) => {
       orderBy = { recommendation: 'desc' };
       break;
     case 'member':
-      orderBy = { _count: { Member: 'desc' } };
+      orderBy = { _count: { member: 'desc' } };
       break;
     default:
       orderBy = { createdAt: 'desc' };
@@ -37,7 +37,7 @@ groupRoute.route('/').get(async (req, res) => {
       tag: true,
       goalCount: true,
       recommendation: true,
-      _count: { select: { Member: true } },
+      _count: { select: { member: true } },
     },
     orderBy,
     skip: Number(offset),
