@@ -1,0 +1,54 @@
+###
+POST  http://localhost:3000/group
+Content-Type: application/json
+
+{
+  "name": "유택",
+  "ownerNickName" : "2조",
+  "description": "codiet.doe@example.com",
+  "ownerPassword": "password123", 
+  "goalRep" : 0,
+  "discordURL": "dbxor@naver.com",
+  "invitationURL": "1231351"
+} 
+ 
+###
+PATCH http://localhost:3000/group/e5180cee-6701-4475-b15c-22e45851462e
+Content-Type: application/json
+
+{ 
+  "ownerPassword": "password123",
+  "goalRep" : 0,
+  "discordURL": "dbtjd@naver.com",
+  "invitationURL": "987654"
+}
+
+###
+DELETE http://localhost:3000/group/5c06173c-717f-49d4-90ef-5169b84eaaee
+Content-Type: application/json
+
+{
+  "ownerPassword": "password123"
+}
+###
+GET http://localhost:3000/group 
+ 
+ 
+
+###
+GET http://localhost:3000/group/f48ea255-1277-4c24-97a8-d767f7964718
+
+ 
+
+###
+PATCH http://localhost:3000/group/유택/0
+Content-Type: application/json
+
+{
+  "likeCount": 1
+} 
+
+
+###
+GET http://localhost:3000/group/5e78df72-d25b-4d0f-8341-8e026f663095
+ 

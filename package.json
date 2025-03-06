@@ -25,7 +25,8 @@
     "express": "^4.21.2",
     "is-uuid": "^1.0.2",
     "prisma": "^6.4.1",
-    "superstruct": "^2.0.2"
+    "superstruct": "^2.0.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "eslint": "^8.57.1",

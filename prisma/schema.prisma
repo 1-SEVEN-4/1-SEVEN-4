@@ -12,3 +12,104 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+ 
+model Group {
+  id               String   @id @default(uuid()) @db.Uuid
+  name             String   @unique
+  ownerNickName    String   @unique
+  ownerPassword    String
+  description      String
+  photo            String?  
+  tags             String[]  
+  goalRep          Int
+  discordURL       String
+  invitationURL    String
+  likeCount        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  memberCount      Int      @default(0)
+
+  badgeId          String?   @db.Uuid
+  badge            Badge ?   @relation(fields: [badgeId], references: [badgeId])
+
+  GroupTags        GroupTags[]
+  Members          Members[]
+  Records          Record[]
+  GroupBadge GroupBadge[]
+}
+model Badge {
+  badgeId          String   @id @default(uuid()) @db.Uuid
+  badgeName        String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  Members          Members? @relation("MemberBadges", fields: [memberId], references: [id])
+  Record           Record?  @relation("RecordBadges", fields: [recordId], references: [id])
+
+  memberId         String?  @db.Uuid
+  recordId         String?  @db.Uuid
+
+  Group Group[]
+
+  GroupBadge GroupBadge[]
+}
+
+model GroupBadge {
+  groupBadgeId     String   @id @default(uuid()) @db.Uuid
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  badgeId          String   @db.Uuid
+  groupId          String   @db.Uuid
+
+  badge            Badge    @relation(fields: [badgeId], references: [badgeId])
+  group            Group    @relation(fields: [groupId], references: [id])
+}
+
+model GroupTags {
+  id               String   @id @default(uuid()) @db.Uuid
+  content          String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  groupId          String   @db.Uuid
+  group            Group    @relation(fields: [groupId], references: [id])
+}
+
+model Members {
+  id               String   @id @default(uuid()) @db.Uuid
+  nickName         String
+  password         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  groupId          String   @db.Uuid
+  group            Group    @relation(fields: [groupId], references: [id])
+
+  Badge Badge[] @relation("MemberBadges")
+
+  Record Record[]
+}
+
+ 
+
+model Record {
+  id               String   @id @default(uuid()) @db.Uuid
+  nickName         String
+  password         String
+  sports           String
+  description      String
+  time             Int
+  distance         Int
+  photo            String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  memberId         String   @db.Uuid
+  groupId          String   @db.Uuid
+
+  member           Members  @relation(fields: [memberId], references: [id])
+  group            Group    @relation(fields: [groupId], references: [id])
+
+  Badge Badge[] @relation("RecordBadges")
+}
