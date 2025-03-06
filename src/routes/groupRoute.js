@@ -4,13 +4,6 @@ import express from 'express'
 const prisma = new PrismaClient()
 const groupRoute = express.Router()
 
-groupRoute.route('/').post(async (req, res) => {
-  const group = await prisma.group.create({
-    data: req.body,
-  })
-  res.status(201).send(group)
-})
-
 groupRoute.route('/:id').get(async (req, res) => {
   try {
     const { id } = req.params
