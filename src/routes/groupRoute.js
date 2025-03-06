@@ -18,7 +18,7 @@ groupRoute
         data: { likeCount: (group.likeCount += 1) },
       });
 
-      res.status(201).send(updategroup);
+      res.status(200).send(updategroup);
     } catch (e) {
       if (
         e instanceof Prisma.PrismaClientKnownRequestError &&
