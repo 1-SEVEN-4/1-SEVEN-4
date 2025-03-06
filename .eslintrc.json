@@ -5,7 +5,7 @@
       "error",
       {
         "singleQuote": true,
-        "semi": false,
+        "semi": true,
         "trailingComma": "all",
         "bracketSpacing": true,
         "arrowParens": "avoid",
