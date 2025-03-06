@@ -40,36 +40,4 @@ groupRoute.route('/:id').get(async (req, res) => {
   res.status(200).send(group)
 })
 
-groupRoute
-  .route('/:id/likes')
-  .post(async (req, res) => {
-    const { id } = req.params
-    const group = await prisma.group.findUnique({
-      where: { id },
-    })
-
-    group.recommendation += 1
-
-    const updategroup = await prisma.group.update({
-      where: { id: group.id },
-      data: { recommendation: group.recommendation },
-    })
-
-    res.status(201).send(updategroup)
-  })
-  .delete(async (req, res) => {
-    const { id } = req.params
-    const group = await prisma.group.findUnique({
-      where: { id },
-    })
-
-    group.recommendation -= 1
-
-    const updategroup = await prisma.group.update({
-      where: { id },
-      data: { recommendation: group.recommendation },
-    })
-    res.status(201).send(updategroup)
-  })
-
 export default groupRoute
