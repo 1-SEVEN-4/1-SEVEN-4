@@ -16,7 +16,7 @@ datasource db {
 model Group {
   id            String   @id @default(uuid()) @db.Uuid
   name          String
-  ownerNickname String
+  ownerNickName String
   ownerPassword String
   description   String
   photo         String?
@@ -27,15 +27,14 @@ model Group {
   likeCount     Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  memberCount   Int      @default(0)
+  memberCount   Int
 
-  badge   Badge?  @relation(fields: [badgeId], references: [badgeId])
-  badgeId String? @db.Uuid
+  badgeId String @db.Uuid
+  badge   Badge  @relation(fields: [badgeId], references: [badgeId])
 
-  GroupTags GroupTags[]
-  Members   Members[]
-  Records   Record[]
-
+  GroupTags  GroupTags[]
+  Members    Members[]
+  Records    Record[]
   GroupBadge GroupBadge[]
 }
 
@@ -59,8 +58,7 @@ model Members {
   groupId String @db.Uuid
   group   Group  @relation(fields: [groupId], references: [id])
 
-  Badge Badge[] @relation("MemberBadges")
-
+  Badge  Badge[]  @relation("MemberBadges")
   Record Record[]
 }
 
@@ -78,8 +76,7 @@ model Badge {
   memberId String? @db.Uuid
   recordId String? @db.Uuid
 
-  Group Group[]
-
+  Group      Group[]
   GroupBadge GroupBadge[]
 }
 
