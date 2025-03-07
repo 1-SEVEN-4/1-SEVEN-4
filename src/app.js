@@ -4,9 +4,9 @@ import cors from 'cors';
 import { PORT } from './config/index.js';
 import groupRoute from './routes/groupRoute.js';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const app = express()
+app.use(cors())
+app.use(express.json())
 
 app.use('/groups', groupRoute);
 
