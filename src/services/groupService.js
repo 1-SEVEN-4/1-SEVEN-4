@@ -27,3 +27,32 @@ export const createGroup = async data => {
 
   return newGroup;
 };
+
+export const updateGroup = async (
+  groupId,
+  ownerNickName,
+  ownerPassword,
+  updateData,
+) => {
+  const group = await prisma.group.findUnique({ where: { id: groupId } });
+  if (!group) throw { status: 404, message: '그룹을 찾을 수 없습니다.' };
+
+  if (ownerNickName !== group.ownerNickName) {
+    throw { status: 401, message: '닉네임 혹은 비밀번호를 확인해주세요.' };
+  }
+
+  if (ownerPassword !== group.ownerPassword) {
+    throw { status: 401, message: '닉네임 혹은 비밀번호를 확인해주세요.' };
+  }
+
+  if (typeof updateData.goalCount !== 'number') {
+    throw { status: 400, message: '목표 횟수는 숫자여야 합니다.' };
+  }
+
+  const updateGroup = await prisma.group.update({
+    where: { id: groupId },
+    data: updateData,
+  });
+
+  return updateGroup;
+};
