@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 const recordRouter = express.Router();
 
 recordRouter.route('/').get(async (req, res) => {
-  const { offset = 0, limit = 10, order = 'newest', nickname } = req.query;
+  const { offset = 0, limit = 10, order = 'newest', nickName } = req.query;
   let orderBy;
   switch (order) {
     case 'fastest':
@@ -28,7 +28,7 @@ recordRouter.route('/').get(async (req, res) => {
   const records = await prisma.record.findMany({
     where: {
       members: {
-        nickname: { contains: nickname, mode: 'insensitive' },
+        nickName: { contains: nickName, mode: 'insensitive' },
       },
     },
     orderBy,
@@ -37,7 +37,11 @@ recordRouter.route('/').get(async (req, res) => {
     include: {
       members: {
         select: {
-          nickname: true,
+          id: true,
+          nickName: true,
+          createdAt: true,
+          updatedAt: true,
+          groupId: true,
         },
       },
     },
