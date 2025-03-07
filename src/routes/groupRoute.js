@@ -1,8 +1,10 @@
 import express from 'express';
-import { getGroupDetail } from '../controllers/groupController.js';
+
+import { BadLikeCount, goodLikeCount } from '../controllers/groupController.js';
 
 const groupRoute = express.Router();
 
-groupRoute.get('/:id', getGroupDetail);
+groupRoute.post('/:id/likes', goodLikeCount);
+groupRoute.delete('/:id/likes', BadLikeCount);
 
 export default groupRoute;
