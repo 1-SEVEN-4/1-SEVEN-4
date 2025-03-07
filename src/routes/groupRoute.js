@@ -1,53 +1,8 @@
-import { Prisma, PrismaClient } from '@prisma/client';
 import express from 'express';
+import { getGroupDetail } from '../controllers/groupController.js';
 
-const prisma = new PrismaClient();
 const groupRoute = express.Router();
 
-groupRoute
-  .route('/:id')
-  .get(async (req, res) => {
-    try {
-      const { id } = req.params;
-      const group = await prisma.group.findUnique({
-        where: { id },
-        include: {
-          Members: {
-            select: {
-              id: true,
-              nickName: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          },
-          badge: true,
-          ownerPassword: false,
-        },
-      });
-
-      res.status(200).send(group);
-    } catch (e) {
-      if (
-        e instanceof Prisma.PrismaClientKnownRequestError &&
-        e.code === 'P2023'
-      ) {
-        res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
-      } else {
-        res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
-      }
-    }
-  })
-  .delete(async (req, res) => {
-    const { id } = req.params;
-    await prisma.group.delete({
-      where: { id },
-    });
-    res.status(204);
-  });
-
-groupRoute.route('/').get(async (req, res) => {
-  const group = await prisma.group.findMany();
-  res.status(200).send(group);
-});
+groupRoute.get('/:id', getGroupDetail);
 
 export default groupRoute;
