@@ -3,8 +3,8 @@ POST  http://localhost:3000/group
 Content-Type: application/json
 
 {
-  "name": "유택",
-  "ownerNickName" : "2조",
+  "name": "코드잇잇",
+  "ownerNickName" : "3조",
   "description": "codiet.doe@example.com",
   "ownerPassword": "password123", 
   "goalRep" : 0,
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/group/f48ea255-1277-4c24-97a8-d767f7964718
+DELETE http://localhost:3000/group/cd43c115-6246-44af-b259-430848a26f3c
 Content-Type: application/json
 
 {
@@ -41,14 +41,12 @@ GET http://localhost:3000/group/f48ea255-1277-4c24-97a8-d767f7964718
  
 
 ###
-PATCH http://localhost:3000/group/유택/likecount
+PATCH http://localhost:3000/group/코드잇잇/likecount
 Content-Type: application/json
 
 {
   "likeCount": 1
 } 
-
-
+  
 ###
-GET http://localhost:3000/group/5e78df72-d25b-4d0f-8341-8e026f663095
- 
+GET http://localhost:3000/group/코드잇/groupbadges
