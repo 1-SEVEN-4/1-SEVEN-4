@@ -23,9 +23,13 @@ groupRouters
       take: limit,
       include: {
         members: {
-          // select: {
-          //   nickName: true,
-          // },
+          select: {
+            id: true,
+            nickName: true,
+            createdAt: true,
+            updatedAt: true,
+            groupId: true,
+          },
         },
       },
     });
