@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -15,12 +15,16 @@ export async function createMember(req, res) {
       },
     });
 
-    return res.status(201).send(newMember);
+    res.status(201).send(newMember);
   } catch (e) {
-    console.log('Error occured', e);
-    return res.status(500).json({ message: '서버에 문제가 발생했습니다.' });
-  } finally {
-    console.log('Finished');
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2023'
+    ) {
+      res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
+    } else {
+      res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
+    }
   }
 }
 
@@ -34,12 +38,16 @@ export async function getMember(req, res) {
       },
     });
 
-    return res.status(200).send(members);
+    res.status(200).send(members);
   } catch (e) {
-    console.log('Error occured', e);
-    return res.status(500).json({ message: '서버에 문제가 발생했습니다.' });
-  } finally {
-    console.log('Finished');
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2023'
+    ) {
+      res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
+    } else {
+      res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
+    }
   }
 }
 
@@ -56,11 +64,15 @@ export async function deleteMember(req, res) {
       where: { id: member.id },
     });
 
-    return res.status(204).send();
+    res.status(204).send();
   } catch (e) {
-    console.log('Error occured', e);
-    return res.status(500).json({ message: '서버에 문제가 발생했습니다.' });
-  } finally {
-    console.log('Finished');
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2023'
+    ) {
+      res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
+    } else {
+      res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
+    }
   }
 }
