@@ -1,10 +1,7 @@
-import { Prisma, PrismaClient } from '@prisma/client';
 import prisma from '../config/prisma.js';
 import { validate } from 'superstruct';
 import { CreateGroupSchema } from '../util/superstruct.js';
 import { catchHandler } from '../lib/catchHandler.js';
-
-const prisma = new PrismaClient();
 
 export const createGroup = catchHandler(async (req, res) => {
   const [validateData, error] = validate(req.body, CreateGroupSchema);
