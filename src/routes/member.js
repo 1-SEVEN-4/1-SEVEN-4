@@ -23,7 +23,7 @@ groupRouter
       },
     });
 
-    return res.status(201).json(newMember);
+    return res.status(201).send(newMember);
   })
   .get(validateGroupId(), async (req, res) => {
     const { groupId } = req.params;
@@ -34,7 +34,7 @@ groupRouter
       },
     });
 
-    return res.status(200).json(members);
+    return res.status(200).send(members);
   })
   .delete(validateGroupId(), validateLoginInfo(), async (req, res) => {
     const { groupId } = req.params;
