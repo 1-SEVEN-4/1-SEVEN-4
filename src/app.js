@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
 import GroupRouters from './routes/GroupRouter.js';
 import LikeCounter from './routes/LikeCounter.js';
-import groupBadgeRouter from './routes/GroupbadgeRouter.js';
 
 const app = express();
 app.use(cors());
@@ -12,7 +11,6 @@ const prisma = new PrismaClient();
 
 app.use('/group', GroupRouters);
 app.use('/group', LikeCounter);
-app.use('/group', groupBadgeRouter);
 // likecount가 오르면서 badge생성-유택//
 
 const port = 3000;
