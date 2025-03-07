@@ -14,27 +14,27 @@ datasource db {
 }
 
 model Group {
-  id            String   @id @default(uuid())
-  name          String   @unique
-  ownerNickname String   @unique
+  id            String    @id @default(uuid())
+  name          String    @unique
+  ownerNickName String    @unique
   ownerPassword String
   description   String
   photo         String?
-  tags          String?
+  tags          String[]
   goalRep       Int
   discordURL    String
   invitationURL String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  memberCount   Int
   likeCount     Int
-  members       Member[]
+  memberCount   Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  members       Members[]
   records       Record[]
 }
 
-model Member {
+model Members {
   id        String   @id @default(uuid())
-  nickname  String   @unique
+  nickName  String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -54,7 +54,7 @@ model Record {
   updatedAt   DateTime @updatedAt
   groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   groupId     String
-  members     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  members     Members  @relation(fields: [memberId], references: [id], onDelete: Cascade)
   memberId    String
 }
 
