@@ -13,11 +13,11 @@ groupRouter
   .route('/:groupId/members')
   .post(validateLoginCondition(), validateGroupId(), async (req, res) => {
     const { groupId } = req.params;
-    const { nickname, password } = req.body;
+    const { nickName, password } = req.body;
 
-    const newMember = await prisma.member.create({
+    const newMember = await prisma.members.create({
       data: {
-        nickname,
+        nickName,
         password,
         groupId,
       },
@@ -28,7 +28,7 @@ groupRouter
   .get(validateGroupId(), async (req, res) => {
     const { groupId } = req.params;
 
-    const members = await prisma.member.findMany({
+    const members = await prisma.members.findMany({
       where: {
         groupId,
       },
@@ -38,13 +38,13 @@ groupRouter
   })
   .delete(validateGroupId(), validateLoginInfo(), async (req, res) => {
     const { groupId } = req.params;
-    const { nickname } = req.body;
+    const { nickName } = req.body;
 
-    const member = await prisma.member.findUnique({
-      where: { groupId, nickname },
+    const member = await prisma.members.findUnique({
+      where: { groupId, nickName },
     });
 
-    await prisma.member.delete({
+    await prisma.members.delete({
       where: { id: member.id },
     });
 

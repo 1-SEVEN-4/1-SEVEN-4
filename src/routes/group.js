@@ -1,10 +1,10 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
-const groupRouter = express.Router();
+const groupRouters = express.Router();
 const prisma = new PrismaClient();
 
-groupRouter
+groupRouters
   .route('/')
   .get(async (req, res) => {
     const { offset = 0, limit = 10, order = 'newest' } = req.query;
@@ -23,9 +23,9 @@ groupRouter
       take: limit,
       include: {
         members: {
-          select: {
-            nickname: true,
-          },
+          // select: {
+          //   nickName: true,
+          // },
         },
       },
     });
@@ -38,4 +38,4 @@ groupRouter
     res.status(201).send(group);
   });
 
-export default groupRouter;
+export default groupRouters;
