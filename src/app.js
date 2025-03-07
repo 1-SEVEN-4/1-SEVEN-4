@@ -1,8 +1,8 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
-import GroupRouters from './routes/GroupRouter.js';
-import LikeCounter from './routes/LikeCounter.js';
+import GroupRouters from './routes/groupRouter.js';
+import LikeCounter from './routes/likeCounter.js';
 
 const app = express();
 app.use(cors());
