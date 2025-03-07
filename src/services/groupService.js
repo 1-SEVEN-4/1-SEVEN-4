@@ -46,7 +46,7 @@ export const updateGroup = async (
   }
 
   if (typeof updateData.goalCount !== 'number') {
-    throw { status: 400, message: '목표 횟수는 숫자여야 합니다.' };
+    throw { status: 404, message: '목표 횟수는 숫자여야 합니다.' };
   }
 
   const updateGroup = await prisma.group.update({
