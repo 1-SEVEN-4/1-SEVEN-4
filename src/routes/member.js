@@ -5,11 +5,9 @@ import {
   getMember,
 } from '../controllers/memberController.js';
 
-import {
-  validateLoginCondition,
-  validateLoginInfo,
-  validateGroupId,
-} from './validateLogin.js';
+import validateGroupId from '../validator/validateGroupId.js';
+import validateLoginCondition from '../validator/validateLoginCondition.js';
+import validateLoginInfo from '../validator/validateLoginInfo.js';
 
 const groupRouter = express.Router();
 
