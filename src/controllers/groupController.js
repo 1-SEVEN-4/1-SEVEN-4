@@ -1,5 +1,6 @@
-import prisma from '../config/prisma.js';
+import { Prisma } from '@prisma/client';
 import { validate } from 'superstruct';
+import prisma from '../config/prisma.js';
 import { CreateGroupSchema } from '../util/superstruct.js';
 import { catchHandler } from '../lib/catchHandler.js';
 
