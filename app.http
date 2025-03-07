@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/group/5c06173c-717f-49d4-90ef-5169b84eaaee
+DELETE http://localhost:3000/group/f48ea255-1277-4c24-97a8-d767f7964718
 Content-Type: application/json
 
 {
@@ -41,7 +41,7 @@ GET http://localhost:3000/group/f48ea255-1277-4c24-97a8-d767f7964718
  
 
 ###
-PATCH http://localhost:3000/group/유택/0
+PATCH http://localhost:3000/group/유택/likecount
 Content-Type: application/json
 
 {
