@@ -7,6 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/', groupRoute);
+app.use('/group', groupRoute);
 
 app.listen(PORT || 3000, () => console.log(`server on ${PORT}`));
