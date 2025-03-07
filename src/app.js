@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import { PORT } from './config/index.js';
 import groupRouter from './routes/member.js';
-
 import recordRouter from './routes/record.js';
 
 const app = express();
