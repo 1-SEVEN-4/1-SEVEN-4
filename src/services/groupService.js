@@ -56,3 +56,17 @@ export const updateGroup = async (
 
   return updateGroup;
 };
+
+export const deleteGroup = async (groupId, ownerPassword) => {
+  const group = await prisma.group.findUnique({ where: { id: groupId } });
+
+  if (!group) {
+    throw { status: 404, message: '그룹을 찾을 수 없습니다.' };
+  }
+
+  if (ownerPassword !== group.ownerPassword) {
+    throw { status: 401, message: '닉네임 혹은 비밀번호를 확인해주세요' };
+  }
+
+  await prisma.group.delete({ where: { id: groupId } });
+};

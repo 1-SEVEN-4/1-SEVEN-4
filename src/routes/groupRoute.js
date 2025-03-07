@@ -1,5 +1,9 @@
 import express from 'express';
-import { createGroup, updateGroup } from '../services/groupService.js';
+import {
+  createGroup,
+  deleteGroup,
+  updateGroup,
+} from '../services/groupService.js';
 import e from 'express';
 
 const router = express.Router();
@@ -21,7 +25,19 @@ router.put('/group/:groupId', async (req, res) => {
     const updateGroup = await updateGroup(groupId, updateData);
 
     return res.status(200).send(updateGroup);
-  } catch (error) {
+  } catch (e) {
+    return res.status(e.status || 500).send({ message: e.message });
+  }
+});
+
+router.delete('/group/:groupId', async (req, res) => {
+  try {
+    const { groupId } = req.params;
+    const { ownerPassword } = req.body;
+
+    const deleteGroup = await deleteGroup(groupId, ownerPassword);
+    return res.status(200);
+  } catch (e) {
     return res.status(e.status || 500).send({ message: e.message });
   }
 });
