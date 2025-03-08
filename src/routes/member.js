@@ -9,20 +9,20 @@ import validateGroupId from '../validator/validateGroupId.js';
 import validateLoginCondition from '../validator/validateLoginCondition.js';
 import validateLoginInfo from '../validator/validateLoginInfo.js';
 
-const groupRouter = express.Router();
+const groupMemberRouters = express.Router();
 
-groupRouter.post(
+groupMemberRouters.post(
   '/:groupId/members',
   validateLoginCondition,
   validateGroupId,
   createMember,
 );
-groupRouter.get('/:groupId/members', validateGroupId, getMember);
-groupRouter.delete(
+groupMemberRouters.get('/:groupId/members', validateGroupId, getMember);
+groupMemberRouters.delete(
   '/:groupId/members',
   validateGroupId,
   validateLoginInfo,
   deleteMember,
 );
 
-export default groupRouter;
+export default groupMemberRouters;
