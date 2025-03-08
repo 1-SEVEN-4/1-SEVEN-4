@@ -1,0 +1,54 @@
+###
+GET http://localhost:3000/groups
+
+###
+POST http://localhost:3000/groups
+Content-Type: application/json
+
+{
+  "name": "새로운 운동 그룹",
+  "ownerNickName": "그룹 1",
+  "ownerPassword": "12345",
+  "description": "운동을 좋아하는 사람들이 모인 그룹",
+  "photo": "https://example.com/photo.jpg",
+  "tags": ["운동", "헬스", "피트니스"],
+  "goalRep": 1000,
+  "discordURL": "https://discord.gg/abc123",
+  "invitationURL": "https://example.com/invite"
+}
+
+###
+PUT http://localhost:3000/groups/c29558f1-4411-47e8-9f27-a401df0cfece
+Content-Type: application/json
+
+{
+  "ownerNickName": "그룹 1",
+  "ownerPassword": "12345",
+  "updateData": {
+    "name": "새로운 그룹",
+    "description": "그룹 설명",
+    "photo": "https://example.com/photo.jpg",
+    "tags": ["tag1", "tag2"],
+    "goalRep": 1000,
+    "discordURL": "https://discord.gg/abc123",
+    "invitationURL": "https://example.com/invite"
+  }
+}
+
+###
+DELETE http://localhost:3000/groups/c29558f1-4411-47e8-9f27-a401df0cfece
+Content-Type: application/json
+
+{
+  "ownerPassword": "12345"
+}
+
+###
+POST http://localhost:3000/groups/7bfc7f9a-25da-4dcf-b29b-48fda32d35df/likes
+
+###
+DELETE http://localhost:3000/groups/7bfc7f9a-25da-4dcf-b29b-48fda32d35df/likes
+
+
+
+
