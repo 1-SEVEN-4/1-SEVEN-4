@@ -1,9 +1,9 @@
 import express from 'express';
-import { upload, imageUpload } from '../controllers/imagesController.js';
+import { catchHandler } from '../lib/catchHandler.js';
+import { upload, imageUpload } from '../utils/imageUtil.js';
 
 const imageRoute = express.Router();
 
-// 이미지 업로드 API 라우트 설정
-imageRoute.post('/images', upload.array('image'), imageUpload);
+imageRoute.post('/images', upload.array('photo'), catchHandler(imageUpload));
 
 export default imageRoute;

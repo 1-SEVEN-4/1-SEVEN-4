@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRecord } from '../controllers/recordController.js';
-import { startTimer } from '../controllers/timeController.js';
+import { startTimer } from '../utils/timeUtil.js';
 
 const recordRoute = express.Router();
 

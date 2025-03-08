@@ -3,7 +3,6 @@ let isRunning = false;
 
 // 타이머 시작
 export function startTimer(req, res) {
-  console.log('호출');
   if (isRunning) {
     return res.status(400).send({ message: '타이머가 이미 실행 중입니다.' });
   }
