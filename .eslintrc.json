@@ -4,10 +4,7 @@
     "import/extensions": "off",
     "no-console": "off",
     "import/prefer-default-export": false,
-    "object-curly-newline": [
-      "error",
-      { "multiline": true, "consistent": true }
-    ],
+    "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
     "prettier/prettier": [
       "error",
       {

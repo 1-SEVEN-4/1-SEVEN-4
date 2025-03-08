@@ -10,4 +10,4 @@ module.exports = {
   arrowParens: 'avoid',
   proseWrap: 'never',
   bracketSameLine: true,
-};
+}

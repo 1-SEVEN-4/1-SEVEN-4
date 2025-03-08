@@ -1,6 +1,6 @@
 /node_modules
-request
 .env
 .DS_Store
 .husky
 -v
+request
