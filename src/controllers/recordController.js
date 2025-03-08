@@ -9,6 +9,7 @@ export async function createRecord(req, res) {
     const { sports, description, distance, photo, nickName, password } =
       req.body;
 
+    // 사용자 인증 및 타이머
     const member = await prisma.members.findFirst({
       where: { groupId, nickName },
     });
@@ -26,6 +27,7 @@ export async function createRecord(req, res) {
     const timerData = stopTimer();
     const { elapsedSeconds, elapsedTime } = timerData;
 
+    // 레코드 생성
     const record = await prisma.record.create({
       data: {
         sports,
@@ -39,15 +41,18 @@ export async function createRecord(req, res) {
         password,
       },
     });
-    console.log(elapsedSeconds);
+
     const response = {
       id: record.id,
       sports,
       description,
-      photo,
+      photo: record.photo.map(photopath => {
+        return `http://localhost:3000${photopath}`;
+      }),
       memberId: member.id,
       nickName,
     };
+
     res.status(201).send(response);
   } catch (error) {
     console.error('Error creating record:', error);
@@ -56,10 +61,6 @@ export async function createRecord(req, res) {
       return res
         .status(400)
         .send({ message: `Prisma Error: ${error.message}` });
-    } else if (error.response) {
-      return res
-        .status(500)
-        .send({ message: `Discord Error: ${error.response.data}` });
     } else {
       return res.status(500).send({
         message: `서버에 문제가 발생했습니다. 상세 오류: ${error.message}`,
