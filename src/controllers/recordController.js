@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { stopTimer } from './timeController.js';
+import discordNotice from './noticeController.js';
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,10 @@ export async function createRecord(req, res) {
         .status(400)
         .send({ message: '해당 그룹에 등록된 유저가 아닙니다.' });
     }
+
+    const group = await prisma.group.findUnique({
+      where: { id: groupId },
+    });
 
     if (member.password !== password) {
       return res.status(400).send({ message: '비밀번호가 일치하지 않습니다.' });
@@ -52,7 +57,7 @@ export async function createRecord(req, res) {
       memberId: member.id,
       nickName,
     };
-
+    discordNotice(group.name, nickName);
     res.status(201).send(response);
   } catch (error) {
     console.error('Error creating record:', error);
