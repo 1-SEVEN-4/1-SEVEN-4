@@ -14,9 +14,9 @@ datasource db {
 }
 
 model Group {
-  id            String    @id @default(uuid())
-  name          String    @unique
-  ownerNickName String    @unique
+  id            String       @id @default(uuid())
+  name          String       @unique
+  ownerNickName String       @unique
   ownerPassword String
   description   String
   photo         String?
@@ -24,12 +24,26 @@ model Group {
   goalRep       Int
   discordURL    String
   invitationURL String
-  likeCount     Int
-  memberCount   Int
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  likeCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  memberCount   Int          @default(0)
+  badge         Badge?       @relation(fields: [badgeId], references: [badgeId])
+  badgeId       String?      @db.Uuid
+  groupTags     GroupTags[]
   members       Members[]
   records       Record[]
+  GroupBadge    GroupBadge[]
+}
+
+model GroupTags {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  groupId String @db.Uuid
+  groups  Group  @relation(fields: [groupId], references: [id])
 }
 
 model Members {
@@ -38,9 +52,32 @@ model Members {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  groups    Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId   String?
+  groups    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String
   records   Record[]
+}
+
+model Badge {
+  badgeId    String       @id @default(uuid()) @db.Uuid
+  member     Boolean      @default(false)
+  record     Boolean      @default(false)
+  likeCount  Boolean      @default(false)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  memberId   String?      @db.Uuid
+  recordId   String?      @db.Uuid
+  Group      Group[]
+  GroupBadge GroupBadge[]
+}
+
+model GroupBadge {
+  groupBadgeId String   @id @default(uuid()) @db.Uuid
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  badgeId      String   @db.Uuid
+  groupId      String   @db.Uuid
+  badge        Badge    @relation(fields: [badgeId], references: [badgeId])
+  group        Group    @relation(fields: [groupId], references: [id])
 }
 
 model Record {
