@@ -1,8 +1,8 @@
 import express from 'express';
-import getRecordList from '../controller/recordListController.js';
+import getRecordList from '../controllers/recordListController.js';
 
 const recordListRoutes = express.Router();
 
-recordListRoutes.get('/', getRecordList);
+recordListRoutes.get('/:groupId/records', getRecordList);
 
 export default recordListRoutes;

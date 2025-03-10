@@ -2,3 +2,13 @@ node_modules
 
 .env
 
+1-SEVEN-4/
+memberbackup.js
+prisma/mock.js
+prisma/seed.js
+record.js
+request/
+src/config/prisma.js
+src/controllers/ErrorController.js
+src/lib/
+validateLogin.js
