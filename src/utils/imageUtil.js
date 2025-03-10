@@ -14,10 +14,12 @@ const storage = multer.diskStorage({
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
-  if (allowedTypes.includes(file.mimetype)) {
+  if (!allowedTypes.includes(file.mimetype)) {
     const err = new BadRequestError('이미지 파일을 업로드해주세요.');
     return cb(err);
   }
+
+  return cb(null, true);
 };
 
 const upload = multer({
