@@ -13,3 +13,6 @@ src/lib/BadRequestError.js
 src/lib/catchHandler.js
 validateLogin.js
 \355\225\240\352\262\2031-8.txt
+src/routes/recordListRoutes.js
+src/controllers/recordListController.js
+src/controllers/ErrorController.js
