@@ -28,10 +28,10 @@ model Group {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   memberCount   Int          @default(0)
-  GroupTags     GroupTags[]
-  Members       Members[]
-  Records       Record[]
-  GroupBadge    GroupBadge[]
+  groupTags     GroupTag[]
+  members       Member[]
+  records       Record[]
+  groupBadge    GroupBadge[]
 }
 
 enum BadgeType {
@@ -46,19 +46,19 @@ model GroupBadge {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   groupId        String    @db.Uuid
-  group          Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groups         Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
-model GroupTags {
+model GroupTag {
   id        String   @id @default(uuid()) @db.Uuid
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   groupId   String   @db.Uuid
-  group     Group    @relation(fields: [groupId], references: [id])
+  groups    Group    @relation(fields: [groupId], references: [id])
 }
 
-model Members {
+model Member {
   id        String   @id @default(uuid()) @db.Uuid
   nickName  String
   password  String
@@ -66,13 +66,11 @@ model Members {
   updatedAt DateTime @updatedAt
   groupId   String   @db.Uuid
   group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  Record    Record[]
+  records   Record[]
 }
 
 model Record {
   id          String   @id @default(uuid()) @db.Uuid
-  nickName    String
-  password    String
   sports      Sports
   description String
   time        String
@@ -82,8 +80,8 @@ model Record {
   updatedAt   DateTime @updatedAt
   memberId    String   @db.Uuid
   groupId     String   @db.Uuid
-  member      Members  @relation(fields: [memberId], references: [id])
-  group       Group    @relation(fields: [groupId], references: [id])
+  member      Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  group       Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 enum Sports {

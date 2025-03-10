@@ -8,6 +8,10 @@ export const goodLikeCount = catchHandler(async (req, res) => {
     where: { id },
   });
 
+  if (!group) {
+    return res.status(400).send({ message: '그룹을 찾을 수 없습니다.' });
+  }
+
   const updateGroup = await prisma.group.update({
     where: { id },
     data: { likeCount: (group.likeCount += 1) },
@@ -22,6 +26,9 @@ export const badLikeCount = catchHandler(async (req, res) => {
   const group = await prisma.group.findUnique({
     where: { id },
   });
+  if (!group) {
+    return res.status(400).send({ message: '그룹을 찾을 수 없습니다.' });
+  }
 
   if (group.likeCount === 0) {
     return res.status(400).send({ message: '취소할 추천 수가 없습니다.' });

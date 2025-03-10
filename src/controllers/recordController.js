@@ -58,8 +58,8 @@ export const createRecord = catchHandler(async (req, res) => {
       updatedAt: member.updatedAt,
       groupId,
     },
-    createdAt,
-    updatedAt,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
   };
   discordNotice(group.name, nickName);
   res.status(201).send(response);
