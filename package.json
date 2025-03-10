@@ -7,6 +7,9 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dev": "nodemon ./src/app.js "
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/1-SEVEN-4/1-SEVEN-4.git"
