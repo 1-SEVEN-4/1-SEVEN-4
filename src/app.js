@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 
-app.use('/groups', groupRoute);
+app.use('/group', groupRoute);
 app.use('/groups', recordRoute);
 app.use('/groups', imageRoute);
 

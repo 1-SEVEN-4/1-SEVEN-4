@@ -4,6 +4,10 @@ import { upload, imageUpload } from '../utils/imageUtil.js';
 
 const imageRoute = express.Router();
 
-imageRoute.post('/images', upload.array('photo'), catchHandler(imageUpload));
+imageRoute.post(
+  '/images',
+  upload.array('photo', 10),
+  catchHandler(imageUpload),
+);
 
 export default imageRoute;

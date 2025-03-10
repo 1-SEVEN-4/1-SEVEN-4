@@ -29,6 +29,7 @@ const upload = multer({
 });
 
 const imageUpload = (req, res) => {
+  console.log(req.files);
   if (req.files) {
     const filePaths = req.files.map(file => `/uploads/${file.filename}`);
     return res.status(200).json({ urls: filePaths });
