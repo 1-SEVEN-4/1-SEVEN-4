@@ -13,7 +13,8 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use('/records', recordListRoutes);
+app.use('/groups', groupMemberRouters);
+app.use('/groups', recordListRoutes);
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);
