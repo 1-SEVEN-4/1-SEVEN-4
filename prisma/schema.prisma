@@ -12,34 +12,62 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model Group {
-  id            String   @id @default(uuid())
-  name          String   @unique
-  ownerNickname String   @unique
+  id            String       @id @default(uuid())
+  name          String       @unique
+  ownerNickname String       @unique
   ownerPassword String
   description   String
   photo         String?
-  tags          String?
+  tags          String[]
   goalRep       Int
   discordURL    String
   invitationURL String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  memberCount   Int
-  likeCount     Int
-  members       Member[]
+  likeCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  memberCount   Int          @default(1)
+  groupTags     GroupTag[]
+  members       Members[]
   records       Record[]
+  groupBadge    GroupBadge[]
 }
 
-model Member {
+model GroupBadge {
+  groupBadgeId   String    @id @default(uuid())
+  groupBadgeName BadgeType
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  groupId        String
+  groups         Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model GroupTag {
   id        String   @id @default(uuid())
-  nickname  String   @unique
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  groupId   String
+  groups    Group    @relation(fields: [groupId], references: [id])
+}
+
+model Members {
+  id        String   @id @default(uuid())
+  nickName  String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  groups    Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId   String?
+  groupId   String
+  groups    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   records   Record[]
 }
 
@@ -47,19 +75,25 @@ model Record {
   id          String   @id @default(uuid())
   sports      Sports
   description String
-  time        Int
+  time        String
   distance    Int
-  photo       String?
+  photo       String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId     String
-  members     Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
   memberId    String
+  groupId     String
+  members     Members  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 enum Sports {
   RUNNING
   CYCLING
   SWIMMING
+}
+
+enum BadgeType {
+  likeCountbadge
+  recordbadge
+  memberBadges
 }

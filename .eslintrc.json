@@ -1,9 +1,14 @@
 {
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier"],
   "rules": {
     "import/extensions": "off",
     "no-console": "off",
     "semi": ["error", "always"],
+    "import/prefer-default-export": false,
+    "object-curly-newline": [
+      "error",
+      { "multiline": true, "consistent": true }
+    ],
     "prettier/prettier": [
       "error",
       {
