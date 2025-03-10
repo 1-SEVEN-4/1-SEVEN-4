@@ -2,6 +2,7 @@ import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
 
 const getRecordList = catchHandler(async (req, res) => {
+  const { groupId } = req.params;
   const { offset = 0, limit = 10, order = 'newest', nickName } = req.query;
   let orderBy;
   switch (order) {
@@ -23,6 +24,7 @@ const getRecordList = catchHandler(async (req, res) => {
 
   const records = await prisma.record.findMany({
     where: {
+      groupId,
       members: {
         nickName: { contains: nickName, mode: 'insensitive' },
       },
