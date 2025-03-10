@@ -6,7 +6,7 @@ import recordListRoutes from './routes/recordListRoutes.js';
 import {
   defaultNotFoundHandler,
   globalErrorHandler,
-} from './controllers/ErrorContoller.js';
+} from './controllers/ErrorController.js';
 
 const app = express();
 app.use(cors());
