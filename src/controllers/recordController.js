@@ -39,8 +39,6 @@ export const createRecord = catchHandler(async (req, res) => {
       photo,
       memberId: member.id,
       groupId,
-      nickName,
-      password,
     },
   });
 
@@ -53,7 +51,7 @@ export const createRecord = catchHandler(async (req, res) => {
     }),
     members: {
       memberId: member.id,
-      nickName,
+      nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
       groupId,
