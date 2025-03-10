@@ -89,3 +89,4 @@ enum BadgeType {
   recordbadge
   memberBadges
 }
+

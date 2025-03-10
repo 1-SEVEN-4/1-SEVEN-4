@@ -1,5 +1,6 @@
 module.exports = {
-  printWidth: 80,
+  endOfLine: 'auto',
+  printWidth: 120,
   tabWidth: 2,
   useTabs: false,
   semi: true,
@@ -9,4 +10,5 @@ module.exports = {
   arrowParens: 'avoid',
   proseWrap: 'never',
   endOfLine: 'auto',
+  bracketSameLine: true,
 };

@@ -1,18 +1,6 @@
-node_modules
-
+/node_modules
+request
 .env
 
-1-SEVEN-4/
-memberbackup.js
-prisma/mock.js
-prisma/seed.js
-record.js
-request/
-src/controllers/ErrorContoller.js
-src/lib/BadRequestError.js
-src/lib/catchHandler.js
-validateLogin.js
-\355\225\240\352\262\2031-8.txt
-src/routes/recordListRoutes.js
-src/controllers/recordListController.js
-src/controllers/ErrorController.js
+.husky
+-v
