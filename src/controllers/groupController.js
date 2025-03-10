@@ -5,10 +5,12 @@ import { CreateGroupSchema } from '../util/superstruct.js';
 import { catchHandler } from '../lib/catchHandler.js';
 
 export const createGroup = catchHandler(async (req, res) => {
-  const [validateData, error] = validate(req.body, CreateGroupSchema);
+  console.log(req.body);
+  const [error, validateData] = validate(req.body, CreateGroupSchema);
   if (error) return res.status(400).send({ message: error.message });
 
-  const existNickName = await prisma.members.findUnique({
+  console.log(req.body.ownerNickName);
+  const existNickName = await prisma.members.findFirst({
     where: { nickName: validateData.ownerNickName },
   });
 
@@ -18,14 +20,21 @@ export const createGroup = catchHandler(async (req, res) => {
 
   const newGroup = await prisma.group.create({
     data: {
-      ...req.body,
+      name: validateData.name,
+      ownerNickName: validateData.ownerNickName,
+      ownerPassword: validateData.ownerPassword,
+      description: validateData.description,
+      photo: validateData.photo,
+      tags: validateData.tags,
+      goalRep: validateData.goalRep,
+      discordURL: validateData.discordURL,
+      invitationURL: validateData.invitationURL,
       likeCount: 0,
       memberCount: 1,
-      badgeId: '',
       Members: {
         create: {
-          nickName: req.body.ownerNickName,
-          password: req.body.password,
+          nickName: validateData.ownerNickName,
+          password: validateData.ownerPassword,
         },
       },
     },

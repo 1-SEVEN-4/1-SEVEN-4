@@ -29,8 +29,8 @@ model Group {
   updatedAt     DateTime @updatedAt
   memberCount   Int
 
-  badgeId String @db.Uuid
-  badge   Badge  @relation(fields: [badgeId], references: [badgeId])
+  badgeId String? @db.Uuid
+  badge   Badge?  @relation(fields: [badgeId], references: [badgeId])
 
   GroupTags  GroupTags[]
   Members    Members[]

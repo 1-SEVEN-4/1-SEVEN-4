@@ -1,6 +1,6 @@
 import express from 'express';
 import { BadLikeCount, goodLikeCount } from '../controllers/groupController.js';
-import { createGroup, updateGroup, deleteGroup } from '../controller/groupController.js';
+import { createGroup, updateGroup, deleteGroup } from '../controllers/groupController.js';
 
 const groupRoute = express.Router();
 

@@ -2,7 +2,7 @@
 CREATE TABLE "Group" (
     "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
-    "ownerNickname" TEXT NOT NULL,
+    "ownerNickName" TEXT NOT NULL,
     "ownerPassword" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "photo" TEXT,
@@ -13,7 +13,7 @@ CREATE TABLE "Group" (
     "likeCount" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "memberCount" INTEGER NOT NULL DEFAULT 0,
+    "memberCount" INTEGER NOT NULL,
     "badgeId" UUID,
 
     CONSTRAINT "Group_pkey" PRIMARY KEY ("id")
