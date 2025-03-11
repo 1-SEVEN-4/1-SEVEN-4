@@ -22,10 +22,11 @@ export const createGroup = catchHandler(async (req, res) => {
     return res.status(400).send({ message: '이미 존재하는 닉네임입니다.' });
   }
 
+  // 그룹 이름이 같은 경우도 추가해야함
   const newGroup = await prisma.group.create({
     data: {
       name,
-      ownerNickName: ownerNickname,
+      ownerNickname,
       ownerPassword,
       description,
       photo,
@@ -35,14 +36,14 @@ export const createGroup = catchHandler(async (req, res) => {
       invitationURL,
       likeCount: 0,
       memberCount: 1,
-      Members: {
+      members: {
         create: {
           nickName: ownerNickname,
           password: ownerPassword,
         },
       },
     },
-    include: { Members: true, badge: true },
+    include: { members: true, groupBadge: true },
   });
 
   const result = {
@@ -55,8 +56,8 @@ export const createGroup = catchHandler(async (req, res) => {
     invitationURL: newGroup.invitationURL,
     likeCount: newGroup.likeCount,
     tags: newGroup.tags,
-    ownerNickName: newGroup.ownerNickName,
-    members: newGroup.Members.map(member => ({
+    ownerNickname: newGroup.ownerNickname,
+    members: newGroup.members.map(member => ({
       id: member.id,
       nickname: member.nickName,
       createdAt: new Date(member.createdAt).getTime(),
@@ -76,12 +77,12 @@ export const updateGroup = catchHandler(async (req, res) => {
 
   const group = await prisma.group.findUnique({
     where: { id: groupId },
-    include: { Members: true, badge: true },
+    include: { members: true, groupBadge: true },
   });
 
   if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
-  if (ownerNickname !== group.ownerNickName || ownerPassword !== group.ownerPassword) {
+  if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
     return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
   }
 
@@ -100,7 +101,7 @@ export const updateGroup = catchHandler(async (req, res) => {
       invitationURL,
       tags,
     },
-    include: { Members: true, badge: true },
+    include: { members: true, groupBadge: true },
   });
 
   const result = {
@@ -113,8 +114,8 @@ export const updateGroup = catchHandler(async (req, res) => {
     invitationURL: updatedGroup.invitationURL,
     likeCount: updatedGroup.likeCount,
     tags: updatedGroup.tags,
-    ownerNickname: updatedGroup.ownerNickName,
-    members: updatedGroup.Members.map(member => ({
+    ownerNickname: updatedGroup.ownerNickname,
+    members: updatedGroup.members.map(member => ({
       id: member.id,
       nickname: member.nickName,
       createdAt: new Date(member.createdAt).getTime(),
@@ -130,15 +131,16 @@ export const updateGroup = catchHandler(async (req, res) => {
 
 export const deleteGroup = catchHandler(async (req, res) => {
   const { groupId } = req.params;
-  const { ownerPassword } = req.body;
+  const { ownerNickname, ownerPassword } = req.body;
 
   const group = await prisma.group.findUnique({ where: { id: groupId } });
   if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
-  if (ownerPassword !== group.ownerPassword) {
-    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요' });
+  if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
+    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
   }
 
   await prisma.group.delete({ where: { id: groupId } });
+
   return res.status(200).send({ message: '그룹이 삭제되었습니다.' });
 });

@@ -3,23 +3,23 @@ POST http://localhost:8080/group/
 Content-Type: application/json
 
 {
-  "name": "testGroup",
+  "name": "testGroup2",
   "description": "group description",
   "photo": "http://example.com/photo.png",
   "goalRep": 10,
   "discordURL": "http://discordURL.com/invite/test",
   "invitationURL": "http://invitationURL.com/invite",
   "tags": ["tag1", "tag2"],
-  "ownerNickname": "testUser",
+  "ownerNickname": "testUser2",
   "ownerPassword": "password123"
 }
 
 ### 그룹 수정
-PATCH http://localhost:8080/group/bc626d75-c591-4ba8-8337-cd8177224f5e
+PATCH http://localhost:8080/group/07bac994-2e33-481d-8917-dc954db611ad
 Content-Type: application/json
 
 {
-  "ownerNickname": "testUser",
+  "ownerNickname": "testUser2",
   "ownerPassword": "password123",
   "name": "Updated Group Name",
   "description": "Updated description",
@@ -28,4 +28,13 @@ Content-Type: application/json
   "discordURL": "http://discordURL.com/newinvite",
   "invitationURL": "http://invitationURL.com/newinvite",
   "tags": ["newTag1", "newTag2"]
+}
+
+### 그룹 삭제
+DELETE http://localhost:8080/group/bc626d75-c591-4ba8-8337-cd8177224f5e
+Content-Type: application/json
+
+{
+  "ownerNickname": "testUser",
+  "ownerPassword": "password123"
 }
