@@ -9,13 +9,13 @@ const password = refine(string(), 'Password', v =>
 );
 
 export const CreateGroupSchema = object({
-  name: size(string(), 1, 255),
-  description: string(),
+  name: size(string(), 1, 50),
+  description: size(string(), 1, 255),
   photo: optional(string()),
   goalRep: number(),
-  discordURL: nonempty(string()),
-  invitationURL: nonempty(string()),
+  discordURL: size(string(), 1, 100),
+  invitationURL: size(string(), 1, 100),
   tags: optional(array(string())),
-  ownerNickName: nickName,
-  ownerPassword: password,
+  ownerNickname: size(string(), 2, 10),
+  ownerPassword: size(string(), 4, 16),
 });
