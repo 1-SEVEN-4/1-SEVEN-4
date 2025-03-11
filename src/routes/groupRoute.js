@@ -4,7 +4,7 @@ import { createGroup, updateGroup, deleteGroup } from '../controllers/groupContr
 const groupRoute = express.Router();
 
 groupRoute.post('/', createGroup);
-groupRoute.put('/:groupId', updateGroup);
+groupRoute.patch('/:groupId', updateGroup);
 groupRoute.delete('/:groupId', deleteGroup);
 
 export default groupRoute;
