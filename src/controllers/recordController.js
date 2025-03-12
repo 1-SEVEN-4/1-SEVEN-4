@@ -1,8 +1,9 @@
-import { prisma } from '../config/prisma.js';
+import prisma from '../config/prisma.js';
 import { stopTimer } from '../utils/timeUtil.js';
 import discordNotice from '../utils/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PrismaClient } from '@prisma/client';
+import { PORT } from '../config/index.js';
 
 const prisma = new PrismaClient();
 
@@ -15,9 +16,7 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (!member) {
-    return res
-      .status(400)
-      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const group = await prisma.group.findUnique({
@@ -25,9 +24,7 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (member.password !== password) {
-    return res
-      .status(400)
-      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const timerData = stopTimer();
@@ -49,8 +46,8 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
-    photo: record.photo.map(photopath => {
-      return `http://localhost:3000${photopath}`;
+    photo: record.photo.map(photoPath => {
+      return `${PORT}/${photoPath}`;
     }),
     members: {
       memberId: member.id,
@@ -70,7 +67,6 @@ export async function getRecordDetail(req, res) {
   try {
     const { groupId, recordId } = req.params;
 
-    // groupId와 recordId가 숫자인지 확인
     if (isNaN(groupId) || isNaN(recordId)) {
       return res.status(400).send({
         message: '그룹Id는 숫자여야 합니다.',

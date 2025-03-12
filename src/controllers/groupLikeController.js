@@ -1,4 +1,4 @@
-import { prisma } from '../config/prisma.js';
+import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
 
 export const likeCount = catchHandler(async (req, res) => {
