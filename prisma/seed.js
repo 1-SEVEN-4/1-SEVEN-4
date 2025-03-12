@@ -4,12 +4,11 @@ import { GROUPS, RECORDS } from './mock.js';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🔄 Seeding database...');
-
-  // 1️⃣ 기존 데이터 삭제
-  await prisma.record.deleteMany();
-  await prisma.members.deleteMany();
   await prisma.group.deleteMany();
+  await prisma.members.deleteMany();
+  await prisma.record.deleteMany();
+  
+  console.log('🔄 Seeding database...');
 
   // 2️⃣ 그룹 데이터 삽입
   await prisma.group.createMany({

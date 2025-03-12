@@ -1,13 +1,30 @@
-export const createGroup = catchHandler(async (req, res) => {
-  const group = await prisma.group.create({
-    data: req.body,
-  });
-  res.status(201).send(group);
-
+import { prisma } from '../config/prisma.js';
+import { catchHandler } from '../lib/catchHandler.js';
 import { validate } from 'superstruct';
 import { CreateGroupSchema, validationError } from '../util/superstruct.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import prisma from '../config/prisma.js';
+
+export const getGroupDetail = catchHandler(async (req, res) => {
+  const { id } = req.params;
+  const group = await prisma.group.findUnique({
+    where: { id },
+    include: {
+      members: {
+        select: {
+          id: true,
+          nickName: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      groupBadge: true,
+      ownerPassword: false,
+    },
+  });
+
+  res.status(200).send(group);
+}
 
 export const createGroup = catchHandler(async (req, res) => {
   const [error, validatedData] = validate(req.body, CreateGroupSchema);

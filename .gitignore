@@ -1,6 +1,7 @@
 /node_modules
 request
 .env
+/uploads
 
 .husky
 -v
