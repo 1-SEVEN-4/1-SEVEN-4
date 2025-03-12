@@ -3,7 +3,7 @@ export const createGroup = catchHandler(async (req, res) => {
     data: req.body,
   });
   res.status(201).send(group);
-=======
+
 import { validate } from 'superstruct';
 import { CreateGroupSchema, validationError } from '../util/superstruct.js';
 import { catchHandler } from '../lib/catchHandler.js';
