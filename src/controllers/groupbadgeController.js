@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../config/prisma';
 
 async function checkAndAssignBadge(groupId) {
   const group = await prisma.group.findUnique({
@@ -13,9 +11,7 @@ async function checkAndAssignBadge(groupId) {
     return;
   }
 
-  const hasGoldBadge = group.groupBadge.some(
-    badge => badge.groupBadgeName === 'likeCountbadge',
-  );
+  const hasGoldBadge = group.groupBadge.some(badge => badge.groupBadgeName === 'likeCountBadge');
 
   const memberCount = await prisma.members.count({
     where: { groupId },
@@ -25,18 +21,16 @@ async function checkAndAssignBadge(groupId) {
     where: { groupId },
   });
 
-  const hasMemberBadge = group.groupBadge.some(
-    badge => badge.groupBadgeName === 'memberBadges',
-  );
+  const hasMemberBadge = group.groupBadge.some(badge => badge.groupBadgeName === 'memberBadges');
 
   if (group.likeCount >= 100 && !hasGoldBadge) {
     await prisma.groupBadge.create({
       data: {
-        groupBadgeName: 'likeCountbadge',
+        groupBadgeName: 'likeCountBadge',
         groups: { connect: { id: groupId } },
       },
     });
-    console.log(` ${group.name} 그룹에 likeCountbadge 뱃지가 추가되었습니다!`);
+    console.log(` ${group.name} 그룹에 likeCountBadge 뱃지가 추가되었습니다!`);
   }
 
   if (memberCount >= 10 && !hasMemberBadge) {
@@ -51,15 +45,14 @@ async function checkAndAssignBadge(groupId) {
   if (recordCount >= 100) {
     await prisma.groupBadge.create({
       data: {
-        groupBadgeName: 'recordbadge',
+        groupBadgeName: 'recordBadge',
         groups: { connect: { id: groupId } },
       },
     });
-    console.log(`${group.name} 그룹에 recordbadge 뱃지가 추가되었습니다!`);
+    console.log(`${group.name} 그룹에 recordBadge 뱃지가 추가되었습니다!`);
   }
 }
 
-// eslint-disable-next-line consistent-return
 export const updateLikeCount = async (req, res) => {
   const { name } = req.params;
 
@@ -87,7 +80,6 @@ export const updateLikeCount = async (req, res) => {
   }
 };
 
-// eslint-disable-next-line consistent-return
 export const getGroupBadges = async (req, res) => {
   const { name } = req.params;
 

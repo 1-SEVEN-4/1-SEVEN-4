@@ -6,11 +6,7 @@
     "no-console": "off",
     "no-unused-vars": "off",
     "semi": ["error", "always"],
-    "import/prefer-default-export": false,
-    "object-curly-newline": [
-      "error",
-      { "multiline": true, "consistent": true }
-    ],
+    "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
     "prettier/prettier": [
       "error",
       {

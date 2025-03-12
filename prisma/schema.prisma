@@ -28,7 +28,7 @@ model Group {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   memberCount   Int          @default(1)
-  groupTags     GroupTag[]
+  groupTags     GroupTags[]
   members       Members[]
   records       Record[]
   groupBadge    GroupBadge[]
