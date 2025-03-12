@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import express from 'express';
 import cors from 'cors';
 import { PORT } from './config/index.js';
