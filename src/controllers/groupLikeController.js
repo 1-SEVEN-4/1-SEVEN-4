@@ -1,7 +1,7 @@
 import { prisma } from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
 
-export const goodLikeCount = catchHandler(async (req, res) => {
+export const likeCount = catchHandler(async (req, res) => {
   const { id } = req.params;
 
   const group = await prisma.group.findUnique({
@@ -20,7 +20,7 @@ export const goodLikeCount = catchHandler(async (req, res) => {
   res.status(200).send(updateGroup);
 });
 
-export const badLikeCount = catchHandler(async (req, res) => {
+export const unLikeCount = catchHandler(async (req, res) => {
   const { id } = req.params;
 
   const group = await prisma.group.findUnique({
