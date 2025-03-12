@@ -94,6 +94,8 @@ enum Sports {
 
 enum BadgeType {
   likeCountbadge
-  recordbadge
+  recordBadge
+  likeCountBadge
+  recordBadge
   memberBadges
 }
