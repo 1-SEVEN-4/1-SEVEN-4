@@ -3,3 +3,5 @@ request
 .env
 /uploads
 
+.husky
+-v
