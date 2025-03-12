@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 import { PORT } from './config/index.js';
-import groupRoute from './src/routes/groupRouter.js';
+import groupRoute from './routes/groupRouter.js';
 
 const app = express();
 app.use(cors());
