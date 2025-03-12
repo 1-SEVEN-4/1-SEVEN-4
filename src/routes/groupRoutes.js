@@ -1,5 +1,5 @@
 import express from 'express';
-import { createGroup, updateGroup, deleteGroup, getGroupDetail, getGroup } from '../controllers/groupController.js';
+import { createGroup, updateGroup, deleteGroup, getGroupDetail, getGroup } from '../controllers/groupcontroller.js';
 
 const groupRoute = express.Router();
 
