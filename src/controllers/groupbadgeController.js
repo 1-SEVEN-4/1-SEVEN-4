@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function checkAndAssignBadge(groupId) {
   const group = await prisma.group.findUnique({
     where: { id: groupId },
-    include: { GroupBadge: true },
+    include: { groupBadge: true },
   });
 
   if (!group) {
@@ -13,7 +13,7 @@ async function checkAndAssignBadge(groupId) {
     return;
   }
 
-  const hasGoldBadge = group.GroupBadge.some(
+  const hasGoldBadge = group.groupBadge.some(
     badge => badge.groupBadgeName === 'likeCountbadge',
   );
 
@@ -21,7 +21,7 @@ async function checkAndAssignBadge(groupId) {
     where: { groupId },
   });
 
-  const hasMemberBadge = group.GroupBadge.some(
+  const hasMemberBadge = group.groupBadge.some(
     badge => badge.groupBadgeName === 'memberBadges',
   );
 
@@ -29,7 +29,7 @@ async function checkAndAssignBadge(groupId) {
     await prisma.groupBadge.create({
       data: {
         groupBadgeName: 'likeCountbadge',
-        group: { connect: { id: groupId } },
+        groups: { connect: { id: groupId } },
       },
     });
     console.log(` ${group.name} 그룹에 likeCountbadge 뱃지가 추가되었습니다!`);
@@ -39,7 +39,7 @@ async function checkAndAssignBadge(groupId) {
     await prisma.groupBadge.create({
       data: {
         groupBadgeName: 'memberBadges',
-        group: { connect: { id: groupId } },
+        groups: { connect: { id: groupId } },
       },
     });
     console.log(`${group.name} 그룹에 memberBadges 뱃지가 추가되었습니다!`);

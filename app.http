@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "코드잇잇",
-  "ownerNickName" : "3조",
+  "ownerNickname" : "3조",
   "description": "codiet.doe@example.com",
   "ownerPassword": "password123", 
   "goalRep" : 0,
@@ -13,7 +13,7 @@ Content-Type: application/json
 } 
  
 ###
-PATCH http://localhost:3000/group/0d3835a8-8280-456f-9a12-3e8abc432e18
+PATCH http://localhost:3000/group/207eef76-d1dc-4a28-ac79-df56e1705110
 Content-Type: application/json
 
 { 
@@ -36,8 +36,7 @@ GET http://localhost:3000/group
  
 
 ###
-GET http://localhost:3000/group/a9fdfd0b-c5e6-4fd2-ba2a-c3a40956d8c5
-
+GET http://localhost:3000/group/207eef76-d1dc-4a28-ac79-df56e1705110
  
 
 ###

@@ -16,7 +16,7 @@ async function passwordCheck(groupId, Password) {
   console.log('Received Password:', Password);
   console.log('Stored Password:', storedPassword);
   if (Password !== storedPassword) {
-    throw new Error('일치하지 않소소');
+    throw new Error('일치하지 않습니다');
   }
 }
 
@@ -24,7 +24,7 @@ GroupRouters.route('/')
   .post(async (req, res) => {
     const {
       name,
-      ownerNickName,
+      ownerNickname,
       description,
       ownerPassword,
       photo,
@@ -36,7 +36,7 @@ GroupRouters.route('/')
     const newdata = await prisma.group.create({
       data: {
         name,
-        ownerNickName,
+        ownerNickname,
         description,
         ownerPassword,
         photo,
@@ -63,7 +63,7 @@ GroupRouters.route('/')
       select: {
         id: true,
         name: true,
-        ownerNickName: true,
+        ownerNickname: true,
         description: true,
         ownerPassword: true,
         photo: true,
@@ -109,7 +109,7 @@ GroupRouters.route('/:id')
       select: {
         id: true,
         name: true,
-        ownerNickName: true,
+        ownerNickname: true,
         description: true,
         ownerPassword: true,
         photo: true,
