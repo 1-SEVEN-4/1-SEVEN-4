@@ -3,6 +3,7 @@
   "rules": {
     "import/extensions": "off",
     "no-console": "off",
+    "semi": ["error", "always"],
     "import/prefer-default-export": false,
     "object-curly-newline": [
       "error",
