@@ -21,6 +21,10 @@ async function checkAndAssignBadge(groupId) {
     where: { groupId },
   });
 
+  const recordCount = await prisma.record.count({
+    where: { groupId },
+  });
+
   const hasMemberBadge = group.groupBadge.some(
     badge => badge.groupBadgeName === 'memberBadges',
   );
@@ -43,6 +47,15 @@ async function checkAndAssignBadge(groupId) {
       },
     });
     console.log(`${group.name} 그룹에 memberBadges 뱃지가 추가되었습니다!`);
+  }
+  if (recordCount >= 100) {
+    await prisma.groupBadge.create({
+      data: {
+        groupBadgeName: 'recordbadge',
+        groups: { connect: { id: groupId } },
+      },
+    });
+    console.log(`${group.name} 그룹에 recordbadge 뱃지가 추가되었습니다!`);
   }
 }
 
