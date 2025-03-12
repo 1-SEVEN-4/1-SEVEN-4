@@ -1,5 +1,5 @@
 import express from 'express';
-import { getRecordDetail } from '../controllers/recordDetailController';
+import { getRecordDetail } from '../controllers/recordController';
 
 const recordDetailRoute = express.Router();
 
