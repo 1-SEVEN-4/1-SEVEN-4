@@ -1,5 +1,27 @@
 ###
 GET http://localhost:3000/groups
 
+###
+POST http://localhost:3000/groups
+Content-Type: application/json
+
+{
+  "name": "새로운 운동 그룹",
+  "ownerNickname": "그룹 1",
+  "ownerPassword": "12345",
+  "description": "운동을 좋아하는 사람들이 모인 그룹",
+  "photo": "https://example.com/photo.jpg",
+  "tags": ["운동", "헬스", "피트니스"],
+  "goalRep": 1000,
+  "discordURL": "https://discord.gg/2VUT6E3S",
+  "invitationURL": "https://discord.com/api/webhooks/1347873427738066986/tNYxtDYWdopV20-2ljTt_RAX5YWN9K0tVgzNooilXarKv3PbUE4h_FoAjjC9bqV5vNZd"
+}
+
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+
+
+###
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 
 
