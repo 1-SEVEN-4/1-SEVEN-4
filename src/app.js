@@ -8,6 +8,7 @@ import recordRoute from './routes/recordRoutes.js';
 import imageRoute from './routes/imageRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
 import recordListRoutes from './routes/recordListRoutes.js';
+import groupLikeRoute from './routes/groupLikeRoutes.js';
 import { PORT } from './config/index.js';
 import { defaultNotFoundHandler, globalErrorHandler } from './controllers/ErrorController.js';
 
@@ -18,7 +19,8 @@ app.use(express.json());
 
 app.use('/ranking', rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
-app.use('/groups', groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute, badgeRouter);
+
+app.use('/groups', groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute, groupLikeRoute, badgeRouter);
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);

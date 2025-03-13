@@ -60,3 +60,8 @@ Content-Type: application/json
   "nickName": "닉네임1",
   "password": "hello7!"
 }
+### 그룹 좋아요 추가
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+
+### 그룹 좋아요 제거
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes 
