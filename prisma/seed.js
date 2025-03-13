@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { GROUP, MEMBER, RECODE } from './mock.js';
 
 const prisma = new PrismaClient();
