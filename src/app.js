@@ -1,25 +1,24 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
 import cors from 'cors';
 import path from 'path';
-import badgeRouter from './routes/groupbadgeRoutes.js';
+import badgeRouter from './routes/groupBadgeRoutes.js';
 import rankingRoute from './routes/rankingRoute.js';
 import groupRoute from './routes/groupRoutes.js';
 import recordRoute from './routes/recordRoutes.js';
 import imageRoute from './routes/imageRoutes.js';
+import memberRoutes from './routes/memberRoutes.js';
+import recordListRoutes from './routes/recordListRoutes.js';
 import { PORT } from './config/index.js';
 import { defaultNotFoundHandler, globalErrorHandler } from './controllers/ErrorController.js';
 
 const app = express();
-const prisma = new PrismaClient();
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/group', badgeRouter);
 app.use('/ranking', rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
-app.use('/groups', groupRoute, recordRoute, imageRoute);
+app.use('/groups', badgeRouter, groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute);
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);

@@ -1,7 +1,5 @@
-import { Prisma } from '@prisma/client';
+import prisma from '../src/config/prisma.js';
 import { GROUP, MEMBER, RECODE } from './mock.js';
-
-const prisma = new PrismaClient();
 
 async function main() {
   await prisma.group.deleteMany();
