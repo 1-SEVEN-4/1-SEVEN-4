@@ -2,15 +2,14 @@
   "name": "1-seven-4",
   "version": "1.0.0",
   "description": "1-seven-4 project",
-  "main": "src/app.js",
-  "type": "module",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dev": "nodemon ./src/app.js "
   },
   "prisma": {
-    "seed": "node prisma/seed.js"   
+    "seed": "node prisma/seed.js"
   },
   "repository": {
     "type": "git",
@@ -23,14 +22,13 @@
   },
   "homepage": "https://github.com/1-SEVEN-4/1-SEVEN-4#readme",
   "dependencies": {
-    "@prisma/client": "^6.4.1",
+    "@prisma/client": "^6.5.0",
     "cors": "^2.8.5",
     "discord-webhook-node": "^1.1.8",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "is-uuid": "^1.0.2",
     "multer": "^1.4.5-lts.1",
-    "prisma": "^6.4.1",
     "superstruct": "^2.0.2",
     "uuid": "^11.1.0"
   },
@@ -47,6 +45,7 @@
     "lint-staged": "^15.4.3",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.2",
+    "prisma": "^6.5.0",
     "supertest": "^7.0.0"
   },
   "husky": {
@@ -59,6 +58,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-  "type": "module"
+  }
 }

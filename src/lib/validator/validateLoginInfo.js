@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../../config/prisma.js';
 
 export default async function validateLoginInfo(req, res, next) {
   try {
@@ -12,15 +10,11 @@ export default async function validateLoginInfo(req, res, next) {
     });
 
     if (!member) {
-      return res
-        .status(401)
-        .send({ message: '회원 닉네임 혹은 비밀번호를 다시 확인주세요.' });
+      return res.status(401).send({ message: '회원 닉네임 혹은 비밀번호를 다시 확인주세요.' });
     }
 
     if (member.password !== password) {
-      return res
-        .status(401)
-        .send({ message: '닉네임 혹은 비밀번호를 다시 확인주세요.' });
+      return res.status(401).send({ message: '닉네임 혹은 비밀번호를 다시 확인주세요.' });
     }
 
     return next();
