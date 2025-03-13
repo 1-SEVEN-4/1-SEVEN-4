@@ -1,5 +1,5 @@
 import express from 'express';
-import { updateLikeCount, getGroupBadges } from '../controllers/groupBadgeController.js';
+import { updateLikeCount, getGroupBadges } from '../controllers/groupbadgeController.js';
 
 const badgeRouter = express.Router();
 
