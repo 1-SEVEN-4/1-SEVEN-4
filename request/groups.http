@@ -1,5 +1,62 @@
 ###
 GET http://localhost:3000/groups
 
+###
+POST  http://localhost:3000/groups
+Content-Type: application/json
+
+{
+  "name": "코드잇잇",
+  "ownerNickname" : "3조",
+  "description": "codiet.doe@example.com",
+  "ownerPassword": "password123", 
+  "goalRep" : 0,
+  "discordURL": "dbxor@naver.com",
+  "invitationURL": "1231351"
+} 
+ 
+###
+GET http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0
 
 
+###
+PATCH http://localhost:3000/groups/4bc5ac50-9f2f-442a-9d43-3bdbfbb34dbf
+Content-Type: application/json
+
+{ 
+  "ownerNickname" : "3조",
+  "ownerPassword": "password123",
+  "goalRep" : 0,
+  "discordURL": "dbtjd@naver.com",
+  "invitationURL": "987654"
+}
+
+###
+DELETE http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0
+Content-Type: application/json
+
+{
+  "ownerNickname" : "3조",
+  "ownerPassword": "password123"
+} 
+
+###
+POST http://localhost:3000/groups/1e9f85b4-0022-4a33-893b-9461852e7d29/likes
+
+ 
+###
+PATCH  http://localhost:3000/groups/코드잇잇/likeCounter
+Content-Type: application/json
+
+{
+  "ownerNickname" : "3조",
+  "ownerPassword": "password123"
+} 
+
+###
+GET http://localhost:3000/groups/코드잇잇/groupBadges
+ 
+
+ 
+###
+GET http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0/members

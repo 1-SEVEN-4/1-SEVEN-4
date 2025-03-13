@@ -8,8 +8,10 @@ import recordRoute from './routes/recordRoutes.js';
 import imageRoute from './routes/imageRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
 import recordListRoutes from './routes/recordListRoutes.js';
+import groupLikeRoute from './routes/groupLikeRoutes.js';
 import { PORT } from './config/index.js';
 import { defaultNotFoundHandler, globalErrorHandler } from './controllers/ErrorController.js';
+import { getGroupBadges } from './controllers/groupbadgeController.js';
 
 const app = express();
 
@@ -18,9 +20,11 @@ app.use(express.json());
 
 app.use('/ranking', rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
-app.use('/groups', badgeRouter, groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute);
+app.use('/groups', groupLikeRoute ,badgeRouter, groupRoute, memberRoutes, recordRoute, recordListRoutes,
+   imageRoute  );
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);
 
 app.listen(PORT || 3000, () => console.log(`server on ${PORT}`));
+ 
