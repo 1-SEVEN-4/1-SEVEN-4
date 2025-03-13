@@ -43,11 +43,13 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
+    time,
+    distance,
     photo: record.photo.map(photoPath => {
       return `${PORT}/${photoPath}`;
     }),
     members: {
-      memberId: member.id,
+      id: member.id,
       nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
