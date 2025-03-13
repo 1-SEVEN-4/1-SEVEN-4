@@ -1,6 +1,6 @@
 import prisma from '../config/prisma.js';
-import { stopTimer } from '../utils/timeUtil.js';
-import discordNotice from '../utils/noticeUtil.js';
+import { stopTimer } from '../util/timeUtil.js';
+import discordNotice from '../util/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
 
