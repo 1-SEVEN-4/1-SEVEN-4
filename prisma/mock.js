@@ -13,20 +13,6 @@ export const GROUP = [
     likeCount: 50,
     memberCount: 10,
   },
-  {
-    id: '0cefeff8-b2ff-4d57-a19d-e7c02e394688',
-    name: 'Cycling Champions',
-    ownerNickname: 'bike_master',
-    ownerPassword: 'securepassword456',
-    description: 'Cycling group for champions aiming for the best times.',
-    photo: 'https://example.com/cycling_group_photo.jpg',
-    tags: ['cycling', 'outdoors', 'sports'],
-    goalRep: 2000,
-    discordURL: 'https://discord.gg/example2',
-    invitationURL: 'https://example.com/invite2',
-    likeCount: 120,
-    memberCount: 2,
-  },
 ];
 
 export const MEMBER = [
@@ -200,7 +186,7 @@ export const RECODE = [
     time: '8분 10초',
     distance: 1000,
     photo: ['/images/records/john_doe_running.jpg'],
-    memberId: 'ebfd486a-6e49-4bf2-8fdc-8f02dff3ed45',
+    memberId: 'ebfd486a-6e49-4bf2-8fdc-8f02dff3ed45', // 올바른 ID 수정
     groupId: '0cefeff8-b2ff-4d57-a19d-e7c02e394688',
   },
 ];
