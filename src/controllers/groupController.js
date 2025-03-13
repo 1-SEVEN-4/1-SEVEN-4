@@ -47,7 +47,7 @@ export async function getGroup(req, res) {
         createdAt: true,
         updatedAt: true,
         memberCount: true,
-        _count: { select: { Members: true } },
+        _count: { select: { members: true } },
       },
       orderBy: orderByClause,
       skip: (Number(page) - 1) * Number(limit),
