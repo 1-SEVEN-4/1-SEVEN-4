@@ -9,7 +9,7 @@ export default async function validateLoginCondition(req, res, next) {
 
     const { nickName, password } = await req.body;
 
-    const memberCheck = await prisma.members.findFirst({
+    const memberCheck = await prisma.members.findMany({
       where: {
         groupId,
         nickName,

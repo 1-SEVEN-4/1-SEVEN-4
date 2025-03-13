@@ -93,9 +93,9 @@ export async function getGroup(req, res) {
 }
 
 export const getGroupDetail = catchHandler(async (req, res) => {
-  const { id } = req.params;
+  const { groupId } = req.params;
   const group = await prisma.group.findUnique({
-    where: { id },
+    where: { id : groupId },
     include: {
       members: {
         select: {
