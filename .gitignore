@@ -3,3 +3,4 @@
 /uploads
 .husky
 prisma/migrations/
+src/uploads/
