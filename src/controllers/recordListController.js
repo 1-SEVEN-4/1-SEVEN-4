@@ -4,12 +4,13 @@ import { catchHandler } from '../lib/catchHandler.js';
 const getRecordList = catchHandler(async (req, res) => {
   const { groupId } = req.params;
   const { offset = 0, limit = 10, order = 'newest', nickName } = req.query;
+
   let orderBy;
   switch (order) {
-    case 'fastest':
+    case 'longtime':
       orderBy = { time: 'desc' };
       break;
-    case 'slowest':
+    case 'shorttime':
       orderBy = { time: 'asc' };
       break;
     case 'oldest':
@@ -44,7 +45,20 @@ const getRecordList = catchHandler(async (req, res) => {
       },
     },
   });
-  res.status(200).send(records);
+
+  const responseRecords = records.map(record => ({
+    id: record.id,
+    sports: record.sports,
+    description: record.description,
+    time: record.time,
+    distance: record.distance,
+    photo: record.photo,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+    members: record.members,
+  }));
+
+  res.status(200).send(responseRecords);
 });
 
 export default getRecordList;
