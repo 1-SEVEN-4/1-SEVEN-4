@@ -1,11 +1,8 @@
 import prisma from '../config/prisma.js';
-import { stopTimer } from '../utils/timeUtil.js';
-import discordNotice from '../utils/noticeUtil.js';
+import { stopTimer } from '../util/timeUtil.js';
+import discordNotice from '../util/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
-import { PrismaClient } from '@prisma/client';
 import { PORT } from '../config/index.js';
-
-const prisma = new PrismaClient();
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;

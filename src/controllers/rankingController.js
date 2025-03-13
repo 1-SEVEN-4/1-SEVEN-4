@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../config/prisma.js';
 
 const formatTime = seconds => {
   const minutes = Math.floor(seconds / 60);
