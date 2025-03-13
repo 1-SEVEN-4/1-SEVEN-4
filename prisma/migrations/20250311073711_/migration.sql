@@ -1,2 +1,0 @@
--- CreateEnum
-CREATE TYPE "Sports" AS ENUM ('RUNNING', 'CYCLING', 'SWIMMING');

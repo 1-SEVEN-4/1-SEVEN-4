@@ -39,7 +39,7 @@ model GroupBadge {
   groupBadgeName BadgeType
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  groupId        String    @db.Uuid
+  groupId        String
   group          Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
@@ -48,7 +48,7 @@ model GroupTags {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  groupId   String   @db.Uuid
+  groupId   String
   group     Group    @relation(fields: [groupId], references: [id])
 }
 

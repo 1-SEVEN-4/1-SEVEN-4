@@ -2,7 +2,7 @@
 CREATE TYPE "Sports" AS ENUM ('RUNNING', 'CYCLING', 'SWIMMING');
 
 -- CreateEnum
-CREATE TYPE "BadgeType" AS ENUM ('likeCountbadge', 'recordbadge', 'memberBadges');
+CREATE TYPE "BadgeType" AS ENUM ('likeCountBadge', 'recordBadge', 'memberBadges');
 
 -- CreateTable
 CREATE TABLE "Group" (
@@ -26,7 +26,7 @@ CREATE TABLE "Group" (
 
 -- CreateTable
 CREATE TABLE "GroupBadge" (
-    "groupBadgeId" TEXT NOT NULL,
+    "groupBadgeId" UUID NOT NULL,
     "groupBadgeName" "BadgeType" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE "GroupBadge" (
 );
 
 -- CreateTable
-CREATE TABLE "GroupTag" (
+CREATE TABLE "GroupTags" (
     "id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "groupId" TEXT NOT NULL,
 
-    CONSTRAINT "GroupTag_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "GroupTags_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -87,7 +87,7 @@ CREATE UNIQUE INDEX "Members_nickName_key" ON "Members"("nickName");
 ALTER TABLE "GroupBadge" ADD CONSTRAINT "GroupBadge_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "GroupTag" ADD CONSTRAINT "GroupTag_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "GroupTags" ADD CONSTRAINT "GroupTags_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Members" ADD CONSTRAINT "Members_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
