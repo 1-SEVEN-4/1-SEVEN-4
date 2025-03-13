@@ -18,7 +18,6 @@ export const createMember = catchHandler(async (req, res) => {
 
 export const getMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
-  console.log(groupId);
 
   const member = await prisma.members.findMany({
     where: { groupId },
