@@ -18,21 +18,20 @@ export const createMember = catchHandler(async (req, res) => {
 
 export const getMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
+  console.log(groupId);
 
-  const members = await prisma.members.findMany({
-    where: {
-      groupId,
-    },
+  const member = await prisma.members.findMany({
+    where: { groupId },
   });
 
-  res.status(200).send(members);
+  res.status(200).send(member);
 });
 
 export const deleteMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
   const { nickName } = req.body;
 
-  const member = await prisma.members.findUnique({
+  const member = await prisma.members.findFirst({
     where: { groupId, nickName },
   });
 
