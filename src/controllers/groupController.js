@@ -3,99 +3,92 @@ import { validate } from 'superstruct';
 import { CreateGroupSchema, validationError } from '../util/superstruct.js';
 import prisma from '../config/prisma.js';
 
-export async function getGroup(req, res) {
-  try {
-    const { page = 1, limit = 10, order = 'newest', orderBy = 'createdAt', search = '' } = req.query;
+export const getGroup = catchHandler(async (req, res) => {
+  const { page = 1, limit = 10, order = 'newest', orderBy = 'createdAt', search = '' } = req.query;
 
-    const validOrderBy = ['recommendation', 'participantCount', 'createdAt'];
-    if (!validOrderBy.includes(orderBy)) {
-      return res.status(400).send({
-        message: 'orderBy parameter는 values: [‘likeCount’, ‘memberCount’, ‘createdAt’]를 포함해야합니다.',
-      });
-    }
-
-    let orderByClause;
-    switch (orderBy) {
-      case 'recommendation':
-        orderByClause = { likeCount: 'desc' };
-        break;
-      case 'participantCount':
-        orderByClause = { memberCount: 'desc' };
-        break;
-      case 'createdAt':
-        orderByClause = { createdAt: 'desc' };
-        break;
-      default:
-        orderByClause = { createdAt: 'desc' };
-    }
-
-    const groups = await prisma.group.findMany({
-      where: {
-        name: { contains: search, mode: 'insensitive' },
-      },
-      select: {
-        id: true,
-        name: true,
-        ownerNickname: true,
-        description: true,
-        photo: true,
-        tags: true,
-        goalRep: true,
-        discordURL: true,
-        invitationURL: true,
-        likeCount: true,
-        createdAt: true,
-        updatedAt: true,
-        memberCount: true,
-        _count: { select: { members: true } },
-      },
-      orderBy: orderByClause,
-      skip: (Number(page) - 1) * Number(limit),
-      take: Number(limit),
-    });
-
-    const total = await prisma.group.count({
-      where: {
-        name: { contains: search, mode: 'insensitive' },
-      },
-    });
-
-    res.status(200).send({
-      data: groups.map(group => ({
-        id: group.id,
-        name: group.name,
-        description: group.description || '',
-        photoUrl: group.photo || '',
-        goalRep: group.goalRep,
-        discordWebhookUrl: group.discordURL,
-        discordInviteUrl: group.invitationURL,
-        likeCount: group.likeCount,
-        tags: group.tags || [],
-        owner: {
-          id: group.ownerNickname,
-          nickname: group.ownerNickname,
-          createdAt: group.createdAt ? group.createdAt.getTime() : null,
-          updatedAt: group.updatedAt ? group.updatedAt.getTime() : null,
-        },
-        participants: [],
-        createdAt: group.createdAt ? group.createdAt.getTime() : null,
-        updatedAt: group.updatedAt ? group.updatedAt.getTime() : null,
-        badges: [],
-      })),
-      total,
-    });
-  } catch (error) {
-    console.error('Error fetching groups:', error);
-    res.status(500).send({
-      message: '서버에 문제가 발생했습니다.',
+  const validOrderBy = ['recommendation', 'participantCount', 'createdAt'];
+  if (!validOrderBy.includes(orderBy)) {
+    return res.status(400).send({
+      message: 'orderBy parameter는 values: [‘likeCount’, ‘memberCount’, ‘createdAt’]를 포함해야합니다.',
     });
   }
-}
+
+  let orderByClause;
+  switch (orderBy) {
+    case 'recommendation':
+      orderByClause = { likeCount: 'desc' };
+      break;
+    case 'participantCount':
+      orderByClause = { memberCount: 'desc' };
+      break;
+    case 'createdAt':
+      orderByClause = { createdAt: 'desc' };
+      break;
+    default:
+      orderByClause = { createdAt: 'desc' };
+  }
+
+  const groups = await prisma.group.findMany({
+    where: {
+      name: { contains: search, mode: 'insensitive' },
+    },
+    select: {
+      id: true,
+      name: true,
+      ownerNickname: true,
+      description: true,
+      photo: true,
+      tags: true,
+      goalRep: true,
+      discordURL: true,
+      invitationURL: true,
+      likeCount: true,
+      createdAt: true,
+      updatedAt: true,
+      memberCount: true,
+      _count: { select: { members: true } },
+    },
+    orderBy: orderByClause,
+    skip: (Number(page) - 1) * Number(limit),
+    take: Number(limit),
+  });
+
+  const total = await prisma.group.count({
+    where: {
+      name: { contains: search, mode: 'insensitive' },
+    },
+  });
+
+  res.status(200).send({
+    data: groups.map(group => ({
+      id: group.id,
+      name: group.name,
+      description: group.description || '',
+      photoUrl: group.photo || '',
+      goalRep: group.goalRep,
+      discordWebhookUrl: group.discordURL,
+      discordInviteUrl: group.invitationURL,
+      likeCount: group.likeCount,
+      tags: group.tags || [],
+      owner: {
+        id: group.ownerNickname,
+        nickname: group.ownerNickname,
+        createdAt: group.createdAt, // ? group.createdAt.getTime() : null,
+        updatedAt: group.updatedAt, // ? group.updatedAt.getTime() : null,
+      },
+      participants: [],
+      createdAt: group.createdAt, // ? group.createdAt.getTime() : null,
+      updatedAt: group.updatedAt, // ? group.updatedAt.getTime() : null,
+      badges: [],
+    })),
+    total,
+  });
+});
 
 export const getGroupDetail = catchHandler(async (req, res) => {
   const { groupId } = req.params;
   const group = await prisma.group.findUnique({
-    where: { id : groupId },
+    where: { id: groupId },
     include: {
       members: {
         select: {
@@ -133,6 +126,15 @@ export const createGroup = catchHandler(async (req, res) => {
   }
 
   // 그룹 이름이 같은 경우도 추가해야함
+  const existName = await prisma.group.findFirst({
+    where: { name },
+  });
+
+  if (existName) {
+    return res.status(400).send({ message: '이미 존재하는 그룹명 입니다.' });
+  }
+  //============================//
+
   const newGroup = await prisma.group.create({
     data: {
       name,
