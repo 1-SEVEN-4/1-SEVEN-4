@@ -1,4 +1,33 @@
-GET http://localhost:3000/ranking
+
+GET http://localhost:3000/groups
 ###
 
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/weekly
+###
+
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/monthly
+###
+
+GET http://localhost:3000/groups/46e94317-6d9e-4083-ae92-e8f45d228a47/ranking/weekly
+### 
+###
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
+
+###
+POST http://localhost:3000/groups/start
+
+###
+POST http://localhost:3000/groups/ba365a09-9d92-4b92-ac09-a8150a40ee41/records
+Content-Type: application/json
+
+{
+  "nickName": "3조", 
+  "password": "password123",
+  "sports": "RUNNING", 
+  "description": "뛰기", 
+  "distance": 100, 
+  "photo":["/records/john_doe_running.jpg"]
+}
+
+###
 GET http://localhost:3000/ranking/weekly

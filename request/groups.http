@@ -1,6 +1,7 @@
 ###
 GET http://localhost:3000/groups
 
+//그룹 등록 생성
 ###
 POST  http://localhost:3000/groups
 Content-Type: application/json
@@ -15,10 +16,12 @@ Content-Type: application/json
   "invitationURL": "1231351"
 } 
  
+
+//특정그룹 조회
 ###
-GET http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688
 
-
+//비밀번호가 일치할시 그룹 수정 가능
 ###
 PATCH http://localhost:3000/groups/4bc5ac50-9f2f-442a-9d43-3bdbfbb34dbf
 Content-Type: application/json
@@ -31,8 +34,9 @@ Content-Type: application/json
   "invitationURL": "987654"
 }
 
+//비밀번호 일치시 그룹 삭제
 ###
-DELETE http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0
+DELETE http://localhost:3000/groups/40da43f0-7562-49fe-a2d2-6e5c9a87cc43
 Content-Type: application/json
 
 {
@@ -40,23 +44,37 @@ Content-Type: application/json
   "ownerPassword": "password123"
 } 
 
-###
-POST http://localhost:3000/groups/1e9f85b4-0022-4a33-893b-9461852e7d29/likes
 
- 
+//likecount 100까지 올라가면 groubadge 자동생성
 ###
-PATCH  http://localhost:3000/groups/코드잇잇/likeCounter
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+###
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+//
+# ###
+# PATCH  http://localhost:3000/groups/코드잇잇/likeCounter
+# Content-Type: application/json
+
+# {
+#   "ownerNickname" : "3조",
+#   "ownerPassword": "password123"
+# } 
+
+//groupbadge 조회
+###
+GET http://localhost:3000/groups/Fitness_Enthusiasts/groupBadges
+ 
+
+//멤버 조회 
+###
+GET http://localhost:3000/groups/ba365a09-9d92-4b92-ac09-a8150a40ee41/members
+
+//member 10까지 올라가면 groubadge 자동생성
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
 
 {
-  "ownerNickname" : "3조",
-  "ownerPassword": "password123"
+  "nickName" : "10조",
+  "password": "password123"
 } 
-
-###
-GET http://localhost:3000/groups/코드잇잇/groupBadges
- 
-
- 
-###
-GET http://localhost:3000/groups/92f62df0-bc60-4d2d-b821-f7fcc55954f0/members

@@ -12,7 +12,8 @@ export function startTimer(req, res) {
   res.status(201).send({ message: '타이머 시작', startTime });
 }
 
-export function stopTimer() {
+
+export const timeInt = () => {
   if (!isRunning) {
     return { message: '타이머가 실행되지 않았습니다.' };
   }
@@ -21,10 +22,13 @@ export function stopTimer() {
   const elapsedMilliseconds = endTime.getTime() - startTime.getTime();
   const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
 
-  const minutes = Math.floor(elapsedSeconds / 60);
-  const seconds = elapsedSeconds % 60;
+  return {elapsedSeconds};
+}
+
+export const timeToString = (timeInt) => {
+  const minutes = Math.floor(timeInt / 60);
+  const seconds = timeInt % 60;
 
   const formattedTime = `${String(minutes).padStart(2, '0')}분 ${String(seconds).padStart(2, '0')}초`;
-
-  return { elapsedSeconds, elapsedTime: formattedTime };
+  return {formattedTime};
 }

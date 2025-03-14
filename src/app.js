@@ -18,10 +18,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/ranking', rankingRoute);
+app.use('/groups',rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
 app.use('/groups', groupLikeRoute ,badgeRouter, groupRoute, memberRoutes, recordRoute, recordListRoutes,
-   imageRoute  );
+   imageRoute );
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);

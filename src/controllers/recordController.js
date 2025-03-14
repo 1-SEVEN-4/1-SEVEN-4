@@ -1,8 +1,9 @@
 import prisma from '../config/prisma.js';
-import { stopTimer } from '../util/timeUtil.js';
+import { timeInt } from '../util/timeUtil.js';
 import discordNotice from '../util/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -24,14 +25,14 @@ export const createRecord = catchHandler(async (req, res) => {
     return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
-  const timerData = stopTimer();
-  const { elapsedSeconds, elapsedTime } = timerData;
+  const timerData = timeInt();
+  const { elapsedSeconds } = timerData;
 
   const record = await prisma.record.create({
     data: {
       sports,
       description,
-      time: elapsedTime,
+      time: elapsedSeconds,
       distance,
       photo,
       memberId: member.id,
@@ -57,6 +58,8 @@ export const createRecord = catchHandler(async (req, res) => {
     updatedAt: record.updatedAt,
   };
   discordNotice(group.name, nickName);
+
+  await checkAndAssignBadge(groupId);
   res.status(201).send(response);
 });
 

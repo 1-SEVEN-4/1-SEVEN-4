@@ -1,4 +1,4 @@
-import prisma from '../config/prisma.js';
+import prisma from '../config/prisma.js'; 
 
 export async function checkAndAssignBadge(groupId) {
   const group = await prisma.group.findUnique({
@@ -22,6 +22,7 @@ export async function checkAndAssignBadge(groupId) {
   });
 
   const hasMemberBadge = group.groupBadge.some(badge => badge.groupBadgeName === 'memberBadges');
+  const hasrecordBadge = group.groupBadge.some(badge => badge.groupBadgeName === 'recordBadge');
 
   if (group.likeCount >= 100 && !hasGoldBadge) {
     await prisma.groupBadge.create({
@@ -42,7 +43,7 @@ export async function checkAndAssignBadge(groupId) {
     });
     console.log(`${group.name} 그룹에 memberBadges 뱃지가 추가되었습니다!`);
   }
-  if (recordCount >= 100) {
+  if (recordCount >= 100 && !hasrecordBadge) {
     await prisma.groupBadge.create({
       data: {
         groupBadgeName: 'recordBadge',
