@@ -98,11 +98,11 @@ export const MEMBER = [
   },
 ];
 
-export const RECODE = [
+export const RECORD = [
   {
     sports: 'RUNNING',
     description: 'Morning jog around the park',
-    time: '10분 30초',
+    time: 630, // 10분 30초 => 630초
     distance: 5000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: 'a952da17-77e3-4dfa-857d-d71e5367382f',
@@ -111,7 +111,7 @@ export const RECODE = [
   {
     sports: 'CYCLING',
     description: 'Cycling on the city roads',
-    time: '30분 10초',
+    time: 1810, // 30분 10초 => 1810초
     distance: 15000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: 'b9cf8fed-bb5b-438e-b839-0c5452cf8937',
@@ -120,7 +120,7 @@ export const RECODE = [
   {
     sports: 'SWIMMING',
     description: 'Swimming in the community pool',
-    time: '15분 45초',
+    time: 945, // 15분 45초 => 945초
     distance: 1000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: 'e2981db9-2e9a-4a09-8a02-f53a89b66b9e',
@@ -129,7 +129,7 @@ export const RECODE = [
   {
     sports: 'RUNNING',
     description: 'Running a 10K race',
-    time: '45분 30초',
+    time: 2730, // 45분 30초 => 2730초
     distance: 10000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: '39e334d1-7dba-4795-857d-bde9e4bab7bf',
@@ -138,7 +138,7 @@ export const RECODE = [
   {
     sports: 'CYCLING',
     description: 'Cycling in the countryside',
-    time: '1시간 5분 10초',
+    time: 3910, // 1시간 5분 10초 => 3910초
     distance: 25000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: '88ba0593-79f7-47e4-98c8-8ecc69cb76e0',
@@ -147,7 +147,7 @@ export const RECODE = [
   {
     sports: 'SWIMMING',
     description: 'Open water swimming',
-    time: '20분 15초',
+    time: 1215, // 20분 15초 => 1215초
     distance: 2000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: '0f4e6c46-9493-4673-9521-b692ebea9fa1',
@@ -156,7 +156,7 @@ export const RECODE = [
   {
     sports: 'RUNNING',
     description: 'Evening run on the beach',
-    time: '12분 5초',
+    time: 725, // 12분 5초 => 725초
     distance: 3000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: '09c2a8fc-9fe0-4f60-86db-7859b8b064ae',
@@ -165,7 +165,7 @@ export const RECODE = [
   {
     sports: 'CYCLING',
     description: 'Mountain biking on rough trails',
-    time: '50분 35초',
+    time: 3035, // 50분 35초 => 3035초
     distance: 12000,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: 'f9430c9a-385d-48ab-b174-0196adc41b9c',
@@ -174,7 +174,7 @@ export const RECODE = [
   {
     sports: 'SWIMMING',
     description: 'Freestyle lap training',
-    time: '18분 25초',
+    time: 1105, // 18분 25초 => 1105초
     distance: 1500,
     photo: ['/images/records/john_doe_running.jpg'],
     memberId: '0ba1eb34-93e3-41c8-9a75-2158c2d5d0bd',
@@ -183,10 +183,10 @@ export const RECODE = [
   {
     sports: 'RUNNING',
     description: 'Track and field sprint training',
-    time: '8분 10초',
+    time: 490, // 8분 10초 => 490초
     distance: 1000,
     photo: ['/images/records/john_doe_running.jpg'],
-    memberId: 'ebfd486a-6e49-4bf2-8fdc-8f02dff3ed45', // 올바른 ID 수정
+    memberId: 'ebfd486a-6e49-4bf2-8fdc-8f02dff3ed45',
     groupId: '0cefeff8-b2ff-4d57-a19d-e7c02e394688',
   },
 ];

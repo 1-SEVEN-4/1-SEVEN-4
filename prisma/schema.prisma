@@ -14,9 +14,9 @@ datasource db {
 }
 
 model Group {
-  id            String    @id @default(uuid())
-  name          String    @unique
-  ownerNickName String    @unique
+  id            String       @id @default(uuid())
+  name          String       @unique
+  ownerNickname String       @unique
   ownerPassword String
   description   String
   photo         String?
@@ -24,12 +24,32 @@ model Group {
   goalRep       Int
   discordURL    String
   invitationURL String
-  likeCount     Int
-  memberCount   Int
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  likeCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  memberCount   Int          @default(1)
+  groupTags     GroupTags[]
   members       Members[]
   records       Record[]
+  groupBadge    GroupBadge[]
+}
+
+model GroupBadge {
+  groupBadgeId   String    @id @default(uuid()) @db.Uuid
+  groupBadgeName BadgeType
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  groupId        String
+  group          Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+model GroupTags {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  groupId   String
+  group     Group    @relation(fields: [groupId], references: [id])
 }
 
 model Members {
@@ -38,8 +58,8 @@ model Members {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  groups    Group?   @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  groupId   String?
+  groupId   String
+  groups    Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   records   Record[]
 }
 
@@ -49,17 +69,23 @@ model Record {
   description String
   time        Int
   distance    Int
-  photo       String?
+  photo       String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  memberId    String
   groupId     String
   members     Members  @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  memberId    String
+  groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 enum Sports {
   RUNNING
   CYCLING
   SWIMMING
+}
+
+enum BadgeType {
+  likeCountBadge
+  recordBadge
+  memberBadges
 }
