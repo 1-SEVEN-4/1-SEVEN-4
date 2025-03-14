@@ -1,5 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const createMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -12,7 +13,7 @@ export const createMember = catchHandler(async (req, res) => {
       groupId,
     },
   });
-
+  await checkAndAssignBadge(groupId);
   res.status(201).send(newMember);
 });
 

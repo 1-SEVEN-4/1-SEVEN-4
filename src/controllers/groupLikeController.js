@@ -1,5 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const likeCount = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -16,7 +17,7 @@ export const likeCount = catchHandler(async (req, res) => {
     where: { id: groupId },
     data: { likeCount: (group.likeCount += 1) },
   });
-
+  await checkAndAssignBadge(groupId);
   res.status(200).send(updateGroup);
 });
 

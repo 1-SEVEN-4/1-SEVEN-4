@@ -73,6 +73,19 @@ Content-Type: application/json
 ### groupId에 속한 nickname 목록 조회
 GET  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 
+//비밀번호가 일치할시 그룹 수정 가능
+###
+PATCH http://localhost:3000/groups/4bc5ac50-9f2f-442a-9d43-3bdbfbb34dbf
+Content-Type: application/json
+
+{ 
+  "ownerNickname" : "3조",
+  "ownerPassword": "password123",
+  "goalRep" : 0,
+  "discordURL": "dbtjd@naver.com",
+  "invitationURL": "987654"
+}
+
 ### groupId에 속한 nickname 삭제
 DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
@@ -86,3 +99,24 @@ POST http://localhost:3000/groups/73890202-ca89-4222-9d71-76b3e215370d/likes
 
 ### 그룹 좋아요 제거
 DELETE http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/likes 
+
+//likecount 100까지 올라가면 groubadge 자동생성
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+###
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+//
+
+//groupbadge 조회
+###
+GET http://localhost:3000/groups/Fitness_Enthusiasts/groupBadges
+
+//member 10까지 올라가면 groubadge 자동생성
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
+Content-Type: application/json
+
+{
+  "nickName" : "10조",
+  "password": "password123"
+} 

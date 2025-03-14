@@ -3,6 +3,7 @@ import { timeInt, formatTime } from '../util/timeUtil.js';
 import discordNotice from '../util/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -64,6 +65,8 @@ export const createRecord = catchHandler(async (req, res) => {
     updatedAt: record.updatedAt,
   };
   discordNotice(group.invitationURL, group.name, nickName);
+  await checkAndAssignBadge(groupId);
+
   res.status(201).send(response);
 });
 

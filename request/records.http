@@ -1,3 +1,12 @@
+###
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/weekly
+###
+
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/monthly
+
+###
+GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
+
 ### groupId에 속한 records 조회 
 GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
 
@@ -44,4 +53,3 @@ GET http://localhost:3000/groups/8dfe67ff-45a7-4bee-bd92-66bc9475361d/records/8d
 
 ###
 GET http://localhost:3000/ranking/monthly
-
