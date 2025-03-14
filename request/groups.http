@@ -120,3 +120,12 @@ Content-Type: application/json
   "nickName" : "10조",
   "password": "password123"
 } 
+
+###그룹 목록 조회 - 최신순
+GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=createdAt
+
+###그룹 목록 조회 - 추천순
+GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=recommendation
+
+###그룹 목록 조회 - 참가자순
+GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=participantCount

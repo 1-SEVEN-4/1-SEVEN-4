@@ -20,7 +20,6 @@ app.use(express.json());
 
 app.use('/groups',rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
-
 app.use('/groups', groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute, groupLikeRoute, badgeRouter);
 
 app.use(defaultNotFoundHandler);
