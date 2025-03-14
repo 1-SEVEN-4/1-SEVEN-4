@@ -11,9 +11,11 @@ export const createRecord = catchHandler(async (req, res) => {
   const member = await prisma.members.findFirst({
     where: { groupId, nickName },
   });
-  // TODO:  그룹아이디가 없거나 잘못되었을 때 "그룹이 존재하지 않습니다" 출력 하도록 만들어야 함
+
   if (!member) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res
+      .status(400)
+      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const group = await prisma.group.findUnique({
@@ -21,7 +23,9 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (member.password !== password) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res
+      .status(400)
+      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const timerData = stopTimer();

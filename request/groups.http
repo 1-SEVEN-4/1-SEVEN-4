@@ -18,42 +18,41 @@ POST  http://localhost:3000/groups
 Content-Type: application/json
 
 {
-"name": "testGroup2",
+"name": "testGroup4",
 "description": "group description",
 "photo": "http://example.com/photo.png",
 "goalRep": 3,
 "discordURL": "http://discordURL.com/invite/test",
 "invitationURL": "http://invitationURL.com/invite",
 "tags": ["tag1", "tag2"],
-"ownerNickname": "testUser2",
+"ownerNickname": "testUser9",
 "ownerPassword": "password123"
 }
 
 ### 그룹삭제
-DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688
+DELETE  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974
 Content-Type: application/json
 
 {
-  "ownerNickname": "john_doe",
-  "ownerPassword": "securepassword123"
+  "ownerNickname": "testUser3",
+  "ownerPassword": "password123"
 }
 
 
 ### groupId에 속한 nickname 생성
-POST  http://localhost:3000/groups/f6d309b1-cf5a-4889-b95a-06f17e4109a2/members
+POST  http://localhost:3000/groups/0cf80534-b517-415d-97b2-86bec91562b5/members
 Content-Type: application/json
 
-
 {
-  "nickName": "닉네임5",
+  "nickName": "닉네임8",
   "password": "hello7!"
 }
 
 ### groupId에 속한 nickname 목록 조회
-GET  http://localhost:3000/groups/f6d309b1-cf5a-4889-b95a-06f17e4109a2/members
+GET  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/members
 
 ### groupId에 속한 nickname 삭제
-DELETE  http://localhost:3000/groups/f6d309b1-cf5a-4889-b95a-06f17e4109a2/members
+DELETE  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/members
 Content-Type: application/json
 
 {
@@ -61,7 +60,7 @@ Content-Type: application/json
   "password": "hello7!"
 }
 ### 그룹 좋아요 추가
-POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+POST http://localhost:3000/groups/73890202-ca89-4222-9d71-76b3e215370d/likes
 
 ### 그룹 좋아요 제거
-DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes 
+DELETE http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/likes 
