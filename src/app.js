@@ -9,7 +9,7 @@ import imageRoute from './routes/imageRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
 import recordListRoutes from './routes/recordListRoutes.js';
 import groupLikeRoute from './routes/groupLikeRoutes.js';
-import tagRoute from './routes/groupTagsRoutes.js';
+import tagRoute from './routes/groupTagRoutes.js';
 import { PORT } from './config/index.js';
 import { defaultNotFoundHandler, globalErrorHandler } from './controllers/ErrorController.js';
 
