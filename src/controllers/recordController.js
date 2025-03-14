@@ -12,8 +12,9 @@ export const createRecord = catchHandler(async (req, res) => {
     where: { groupId, nickName },
   });
 
+  console.log(groupId, nickName);
   if (!member) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '닉네임 확인해주세요.' });
   }
 
   const group = await prisma.group.findUnique({
@@ -21,7 +22,7 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (member.password !== password) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '비밀번호를 확인해주세요.' });
   }
 
   const timerData = stopTimer();
@@ -43,11 +44,13 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
+    time: record.time,
+    distance,
     photo: record.photo.map(photoPath => {
       return `${PORT}/${photoPath}`;
     }),
     members: {
-      memberId: member.id,
+      id: member.id,
       nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
@@ -56,7 +59,7 @@ export const createRecord = catchHandler(async (req, res) => {
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
   };
-  discordNotice(group.name, nickName);
+  discordNotice(group.invitationURL, group.name, nickName);
   res.status(201).send(response);
 });
 
