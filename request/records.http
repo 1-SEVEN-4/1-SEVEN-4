@@ -1,1 +1,18 @@
+###
 GET http://localhost:3000/records
+
+###
+POST http://localhost:3000/groups/start
+
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
+Content-Type: application/json
+
+{
+  "nickName": "member10", 
+  "password": "password10",
+  "sports": "RUNNING", 
+  "description": "뛰기", 
+  "distance": 100, 
+  "photo":["/records/john_doe_running.jpg"]
+}
