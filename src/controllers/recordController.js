@@ -1,9 +1,6 @@
-import prisma from '../config/prisma.js';
-import { timeInt } from '../util/timeUtil.js';
-import discordNotice from '../util/noticeUtil.js';
-import { catchHandler } from '../lib/catchHandler.js';
-import { PORT } from '../config/index.js';
-import { checkAndAssignBadge } from  './groupbadgeController.js';
+import { PORT } from "../config/index.js";
+import prisma from "../config/prisma.js";
+import { catchHandler } from "../lib/catchHandler.js";
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -34,7 +31,7 @@ export const createRecord = catchHandler(async (req, res) => {
       description,
       time: elapsedSeconds,
       distance,
-      photo,
+      photo,  // photo는 이미 배열로 저장되고 처리됩니다.
       memberId: member.id,
       groupId,
     },
@@ -45,11 +42,11 @@ export const createRecord = catchHandler(async (req, res) => {
     sports,
     description,
     photo: record.photo.map(photoPath => {
-      return `${PORT}/${photoPath}`;
+      return `${PORT}/${photoPath}`;  // 배열의 각 항목에 대해 URL을 처리
     }),
     members: {
-      memberId: member.id,
-      nickName: member.nickName,
+      id: record.members[0].id,  // 배열에서 첫 번째 멤버를 선택
+      nickname: record.members[0].nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
       groupId,
@@ -66,13 +63,7 @@ export const createRecord = catchHandler(async (req, res) => {
 export async function getRecordDetail(req, res) {
   try {
     const { groupId, recordId } = req.params;
-
-    if (isNaN(groupId) || isNaN(recordId)) {
-      return res.status(400).send({
-        message: '그룹Id는 숫자여야 합니다.',
-      });
-    }
-
+    console.log(recordId);
     const record = await prisma.record.findUnique({
       where: { id: recordId },
       select: {
@@ -81,10 +72,10 @@ export async function getRecordDetail(req, res) {
         description: true,
         time: true,
         distance: true,
-        photo: true,
+        photo: true,  // photo 필드는 이미 배열로 반환됩니다.
         createdAt: true,
         updatedAt: true,
-        member: {
+        members: {
           select: {
             id: true,
             nickName: true,
@@ -92,23 +83,26 @@ export async function getRecordDetail(req, res) {
         },
       },
     });
-
+    
     if (!record) {
       return res.status(404).send({
         message: '기록을 찾을 수 없습니다.',
       });
     }
 
+    // photo는 이미 배열로 저장되어 있으므로 그대로 반환합니다.
     res.status(200).send({
       id: record.id,
       sports: record.sports,
       description: record.description || {},
       time: record.time,
       distance: record.distance,
-      photo: record.photo ? record.photo.split(',') : [],
+      photo: record.photo.map(photoPath => {
+        return `${PORT}/${photoPath}`;  // 각 사진 경로를 포트와 결합하여 반환
+      }),
       members: {
-        id: record.member.id,
-        nickname: record.member.nickName,
+        id: record.members.id,
+        nickname: record.members.nickName,
       },
     });
   } catch (error) {
