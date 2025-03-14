@@ -1,25 +1,77 @@
-###
-GET http://localhost:3000/groups
+### 그룹목록조회
+GET http://localhost:3000/groups/
 
-//그룹 등록 생성
-###
+### 추천수 순서로 그룹목록조회
+GET http://localhost:3000/groups?order=recommendation
+
+### 참가자 순서로 그룹목록조회
+GET http://localhost:3000/groups?order=participantCount
+
+### 최신 순서로 그룹목록조회
+GET http://localhost:3000/groups?order=createdAt
+
+### 그룹명으로 그룹조회
+GET http://localhost:3000/groups?searchgroupname=testGroup3
+
+### 그룹생성
 POST  http://localhost:3000/groups
 Content-Type: application/json
 
 {
-  "name": "코드잇잇",
-  "ownerNickname" : "3조",
-  "description": "codiet.doe@example.com",
-  "ownerPassword": "password123", 
-  "goalRep" : 0,
-  "discordURL": "dbxor@naver.com",
-  "invitationURL": "1231351"
-} 
- 
+"name": "testGroup1",
+"description": "group description",
+"photo": "http://example.com/photo.png",
+"goalRep": 3,
+"discordURL": "http://discordURL.com/invite/test",
+"invitationURL": "http://invitationURL.com/invite",
+"tags": ["tag1", "tag2"],
+"ownerNickname": "testUser1",
+"ownerPassword": "password123"
+}
 
-//특정그룹 조회
+### 그룹삭제
+DELETE  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974
+Content-Type: application/json
+
+{
+  "ownerNickname": "testUser3",
+  "ownerPassword": "password123"
+}
+
 ###
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688
+POST http://localhost:3000/groups
+Content-Type: application/json
+
+{
+  "name": "새로운 운동 그룹",
+  "ownerNickname": "그룹 1",
+  "ownerPassword": "12345",
+  "description": "운동을 좋아하는 사람들이 모인 그룹",
+  "photo": "https://example.com/photo.jpg",
+  "tags": ["운동", "헬스", "피트니스"],
+  "goalRep": 1000,
+  "discordURL": "https://discord.gg/2VUT6E3S",
+  "invitationURL": "https://discord.com/api/webhooks/1347873427738066986/tNYxtDYWdopV20-2ljTt_RAX5YWN9K0tVgzNooilXarKv3PbUE4h_FoAjjC9bqV5vNZd"
+}
+
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+
+
+###
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
+
+### groupId에 속한 nickname 생성
+POST  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
+Content-Type: application/json
+
+{
+  "nickName": "닉네임1",
+  "password": "hello7!"
+}
+
+### groupId에 속한 nickname 목록 조회
+GET  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 
 //비밀번호가 일치할시 그룹 수정 가능
 ###
@@ -34,16 +86,19 @@ Content-Type: application/json
   "invitationURL": "987654"
 }
 
-//비밀번호 일치시 그룹 삭제
-###
-DELETE http://localhost:3000/groups/40da43f0-7562-49fe-a2d2-6e5c9a87cc43
+### groupId에 속한 nickname 삭제
+DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
 
 {
-  "ownerNickname" : "3조",
-  "ownerPassword": "password123"
-} 
+  "nickName": "닉네임1",
+  "password": "hello7!"
+}
+### 그룹 좋아요 추가
+POST http://localhost:3000/groups/73890202-ca89-4222-9d71-76b3e215370d/likes
 
+### 그룹 좋아요 제거
+DELETE http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/likes 
 
 //likecount 100까지 올라가면 groubadge 자동생성
 ###
@@ -51,23 +106,10 @@ POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 ###
 DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 //
-# ###
-# PATCH  http://localhost:3000/groups/코드잇잇/likeCounter
-# Content-Type: application/json
-
-# {
-#   "ownerNickname" : "3조",
-#   "ownerPassword": "password123"
-# } 
 
 //groupbadge 조회
 ###
 GET http://localhost:3000/groups/Fitness_Enthusiasts/groupBadges
- 
-
-//멤버 조회 
-###
-GET http://localhost:3000/groups/ba365a09-9d92-4b92-ac09-a8150a40ee41/members
 
 //member 10까지 올라가면 groubadge 자동생성
 ###

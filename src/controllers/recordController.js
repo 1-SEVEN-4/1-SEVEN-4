@@ -1,6 +1,9 @@
-import { PORT } from "../config/index.js";
-import prisma from "../config/prisma.js";
-import { catchHandler } from "../lib/catchHandler.js";
+import prisma from '../config/prisma.js';
+import { timeInt, formatTime } from '../util/timeUtil.js';
+import discordNotice from '../util/noticeUtil.js';
+import { catchHandler } from '../lib/catchHandler.js';
+import { PORT } from '../config/index.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -10,8 +13,11 @@ export const createRecord = catchHandler(async (req, res) => {
     where: { groupId, nickName },
   });
 
+  console.log(groupId, nickName);
   if (!member) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res
+      .status(400)
+      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const group = await prisma.group.findUnique({
@@ -19,7 +25,9 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (member.password !== password) {
-    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res
+      .status(400)
+      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const timerData = timeInt();
@@ -41,12 +49,14 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
+    time: formatTime(record.time),
+    distance,
     photo: record.photo.map(photoPath => {
-      return `${PORT}/${photoPath}`;  // 배열의 각 항목에 대해 URL을 처리
+      return `http://localhost:${PORT}${photoPath}`;
     }),
     members: {
-      id: record.members[0].id,  // 배열에서 첫 번째 멤버를 선택
-      nickname: record.members[0].nickName,
+      id: member.id,
+      nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
       groupId,
@@ -54,9 +64,9 @@ export const createRecord = catchHandler(async (req, res) => {
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
   };
-  discordNotice(group.name, nickName);
-
+  discordNotice(group.invitationURL, group.name, nickName);
   await checkAndAssignBadge(groupId);
+
   res.status(201).send(response);
 });
 
@@ -95,7 +105,7 @@ export async function getRecordDetail(req, res) {
       id: record.id,
       sports: record.sports,
       description: record.description || {},
-      time: record.time,
+      time: formatTime(record.time),
       distance: record.distance,
       photo: record.photo.map(photoPath => {
         return `${PORT}/${photoPath}`;  // 각 사진 경로를 포트와 결합하여 반환
@@ -112,3 +122,16 @@ export async function getRecordDetail(req, res) {
     });
   }
 }
+
+    id: record.id,
+    sports: record.sports,
+    description: record.description || {},
+    time: record.time,
+    distance: record.distance,
+    photo: record.photo ? record.photo.split(',') : [],
+    members: {
+      id: record.member.id,
+      nickname: record.member.nickName,
+    },
+  });
+};

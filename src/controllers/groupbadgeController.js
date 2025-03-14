@@ -83,7 +83,6 @@ export const updateLikeCount = async (req, res) => {
 
 export const getGroupBadges = async (req, res) => {
   const { name } = req.params;
-
   try {
     const group = await prisma.group.findUnique({
       where: { name },
