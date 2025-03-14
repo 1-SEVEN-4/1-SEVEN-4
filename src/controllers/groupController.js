@@ -132,7 +132,6 @@ export const createGroup = catchHandler(async (req, res) => {
     return res.status(400).send({ message: '이미 존재하는 닉네임입니다.' });
   }
 
-  // 그룹 이름이 같은 경우도 추가해야함
   const newGroup = await prisma.group.create({
     data: {
       name,
@@ -140,12 +139,14 @@ export const createGroup = catchHandler(async (req, res) => {
       ownerPassword,
       description,
       photo,
-      tags,
       goalRep,
       discordURL,
       invitationURL,
       likeCount: 0,
       memberCount: 1,
+      groupTags: {
+        content: tags,
+      },
       members: {
         create: {
           nickName: ownerNickname,

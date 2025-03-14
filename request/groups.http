@@ -24,4 +24,8 @@ POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 ###
 DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 
+###
+POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
 
+###
+DELETE http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/likes
