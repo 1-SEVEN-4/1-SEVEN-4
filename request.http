@@ -30,3 +30,11 @@ Content-Type: application/json
   "invitationURL": "https://example.com/updated-invite",
   "tags": ["updated-programming", "updated-study", "updated-JavaScript"]
 }
+
+### 모든 그룹 태그 (중복 제거함)
+GET http://localhost:3000/tag
+Content-Type: application/json
+
+### 특정 태그 상세 정보 (태그 ID 필요함)
+GET http://localhost:3000/tag/24e8f4be-9de2-4cff-8d63-6d92f9d3683e
+Content-Type: application/json
