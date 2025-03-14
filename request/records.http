@@ -23,6 +23,7 @@ GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?se
 POST http://localhost:3000/groups/start
 
 ### 운동기록 생성
+
 POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
 Content-Type: application/json
 
@@ -43,3 +44,4 @@ GET http://localhost:3000/groups/8dfe67ff-45a7-4bee-bd92-66bc9475361d/records/8d
 
 ###
 GET http://localhost:3000/ranking/monthly
+

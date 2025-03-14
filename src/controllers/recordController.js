@@ -12,6 +12,7 @@ export const createRecord = catchHandler(async (req, res) => {
     where: { groupId, nickName },
   });
 
+  console.log(groupId, nickName);
   if (!member) {
     return res
       .status(400)
@@ -47,13 +48,13 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
-    distance,
     time: formatTime(record.time),
+    distance,
     photo: record.photo.map(photoPath => {
-      return `${PORT}/${photoPath}`;
+      return `http://localhost:${PORT}${photoPath}`;
     }),
     members: {
-      memberId: member.id,
+      id: member.id,
       nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
@@ -62,7 +63,7 @@ export const createRecord = catchHandler(async (req, res) => {
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
   };
-  discordNotice(group.name, nickName);
+  discordNotice(group.invitationURL, group.name, nickName);
   res.status(201).send(response);
 });
 
@@ -121,3 +122,16 @@ export async function getRecordDetail(req, res) {
     });
   }
 }
+
+    id: record.id,
+    sports: record.sports,
+    description: record.description || {},
+    time: record.time,
+    distance: record.distance,
+    photo: record.photo ? record.photo.split(',') : [],
+    members: {
+      id: record.member.id,
+      nickname: record.member.nickName,
+    },
+  });
+};

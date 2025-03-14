@@ -93,7 +93,7 @@ export const getGroup = catchHandler(async (req, res) => {
 });
 
 export const getGroupDetail = catchHandler(async (req, res) => {
-  const { groupId } = req.params;
+  const { id } = req.params;
   const group = await prisma.group.findUnique({
     where: { id: groupId },
     include: {
@@ -156,12 +156,16 @@ export const createGroup = catchHandler(async (req, res) => {
       ownerPassword,
       description,
       photo,
-      tags,
       goalRep,
       discordURL,
       invitationURL,
       likeCount: 0,
       memberCount: 1,
+      groupTags: {
+        create: {
+          contents: JSON.stringify(tags),
+        },
+      },
       members: {
         create: {
           nickName: ownerNickname,
@@ -169,7 +173,7 @@ export const createGroup = catchHandler(async (req, res) => {
         },
       },
     },
-    include: { members: true, groupBadge: true },
+    include: { members: true, groupBadge: true, groupTags: true },
   });
 
   const result = {
@@ -181,8 +185,11 @@ export const createGroup = catchHandler(async (req, res) => {
     discordURL: newGroup.discordURL,
     invitationURL: newGroup.invitationURL,
     likeCount: newGroup.likeCount,
-    tags: newGroup.tags,
     ownerNickname: newGroup.ownerNickname,
+    groupTags: newGroup.groupTags.map(groupTag => ({
+      id: groupTag.id,
+      contents: JSON.parse(groupTag.contents),
+    })),
     members: newGroup.members.map(member => ({
       id: member.id,
       nickname: member.nickName,
@@ -241,9 +248,14 @@ export const updateGroup = catchHandler(async (req, res) => {
       goalRep,
       discordURL,
       invitationURL,
-      tags,
+      groupTags: {
+        updateMany: {
+          where: { groupId },
+          data: { contents: JSON.stringify(tags) },
+        },
+      },
     },
-    include: { members: true, groupBadge: true },
+    include: { members: true, groupBadge: true, groupTags: true },
   });
 
   const result = {
@@ -255,8 +267,11 @@ export const updateGroup = catchHandler(async (req, res) => {
     discordURL: updatedGroup.discordURL,
     invitationURL: updatedGroup.invitationURL,
     likeCount: updatedGroup.likeCount,
-    tags: updatedGroup.tags,
     ownerNickname: updatedGroup.ownerNickname,
+    groupTags: updatedGroup.groupTags.map(groupTag => ({
+      id: groupTag.id,
+      contents: JSON.parse(groupTag.contents),
+    })),
     members: updatedGroup.members.map(member => ({
       id: member.id,
       nickname: member.nickName,
