@@ -30,7 +30,7 @@ async function checkAndAssignBadge(groupId) {
         groups: { connect: { id: groupId } },
       },
     });
-    console.log(` ${group.name} 그룹에 likeCountBadge 뱃지가 추가되었습니다!`);
+    console.log(` ${group.name} 그룹에 likeCountBadge가 추가되었습니다!`);
   }
 
   if (memberCount >= 10 && !hasMemberBadge) {
@@ -40,7 +40,7 @@ async function checkAndAssignBadge(groupId) {
         groups: { connect: { id: groupId } },
       },
     });
-    console.log(`${group.name} 그룹에 memberBadges 뱃지가 추가되었습니다!`);
+    console.log(`${group.name} 그룹에 memberBadges가 추가되었습니다!`);
   }
   if (recordCount >= 100) {
     await prisma.groupBadge.create({
@@ -49,7 +49,7 @@ async function checkAndAssignBadge(groupId) {
         groups: { connect: { id: groupId } },
       },
     });
-    console.log(`${group.name} 그룹에 recordBadge 뱃지가 추가되었습니다!`);
+    console.log(`${group.name} 그룹에 recordBadge가 추가되었습니다!`);
   }
 }
 
@@ -76,7 +76,7 @@ export const updateLikeCount = async (req, res) => {
     res.json(updatedGroup);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: '서버 오류 발생' });
+    res.status(500).json({ error: '서버 오류가 발생하였습니다.' });
   }
 };
 
@@ -103,12 +103,12 @@ export const getGroupBadges = async (req, res) => {
     });
 
     if (groupBadges.length === 0) {
-      return res.status(200).send({ message: '배지가 없습니다.' });
+      return res.status(200).send({ message: '뱃지가 없습니다.' });
     }
 
     res.status(200).json(groupBadges);
   } catch (error) {
     console.error('서버 오류:', error);
-    res.status(500).send({ error: '서버 오류가 발생했습니다.' });
+    res.status(500).send({ error: '서버 오류가 발생하였습니다.' });
   }
 };

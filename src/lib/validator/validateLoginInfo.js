@@ -10,17 +10,17 @@ export default async function validateLoginInfo(req, res, next) {
     });
 
     if (!member) {
-      return res.status(401).send({ message: '회원 닉네임 혹은 비밀번호를 다시 확인주세요.' });
+      return res.status(401).send({ message: '닉네임 또는 비밀번호가 일치하지 않습니다.' });
     }
 
     if (member.password !== password) {
-      return res.status(401).send({ message: '닉네임 혹은 비밀번호를 다시 확인주세요.' });
+      return res.status(401).send({ message: '닉네임 또는 비밀번호가 일치하지 않습니다.' });
     }
 
     return next();
   } catch (e) {
     console.log('Error occured', e);
-    return res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
+    return res.status(500).send({ message: '서버 오류가 발생하였습니다.' });
   } finally {
     console.log('Finished');
   }

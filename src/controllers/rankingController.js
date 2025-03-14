@@ -39,7 +39,7 @@ const getWeeklyRanking = async (req, res) => {
     res.json({ rankings: result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: '서버 오류 발생' });
+    res.status(500).send({ message: '서버 오류가 발생하였습니다.' });
   }
 };
 
@@ -76,7 +76,7 @@ const getMonthlyRanking = async (req, res) => {
     res.json({ rankings: result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: '서버 오류 발생' });
+    res.status(500).send({ message: '서버 오류가 발생하였습니다.' });
   }
 };
 

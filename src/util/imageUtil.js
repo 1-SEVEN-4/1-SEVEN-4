@@ -25,7 +25,7 @@ const fileFilter = (req, file, cb) => {
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
   if (!allowedTypes.includes(file.mimetype)) {
-    const err = new BadRequestError('이미지 파일을 업로드해주세요.');
+    const err = new BadRequestError('이미지 파일을 업로드 바랍니다.');
     return cb(err);
   }
 
@@ -42,7 +42,7 @@ const imageUpload = (req, res) => {
     const filePaths = req.files.map(file => `/uploads/${file.filename}`);
     return res.status(200).json({ urls: filePaths });
   }
-  res.status(400).send({ message: '업로드된 파일이 없습니다.' });
+  res.status(400).send({ message: '업로드 된 파일이 없습니다.' });
 };
 
 export { upload, imageUpload };

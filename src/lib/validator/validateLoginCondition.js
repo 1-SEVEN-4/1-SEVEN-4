@@ -21,17 +21,17 @@ export default async function validateLoginCondition(req, res, next) {
     }
 
     if (!regExpNickName.test(nickName)) {
-      return res.status(400).send({ message: '닉네임은 2자 이상 10자 이하로 입력해 주세요.' });
+      return res.status(400).send({ message: '닉네임은 2자 이상 10자 이하로 입력 바랍니다.' });
     }
 
     if (!regExpPassword.test(password)) {
-      return res.status(400).send({ message: '비밀번호는 4자 이상 16자 이하로 입력해주세요.' });
+      return res.status(400).send({ message: '비밀번호는 4자 이상 16자 이하로 입력 바랍니다.' });
     }
 
     return next();
   } catch (e) {
     console.log('Error occured', e);
-    return res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
+    return res.status(500).send({ message: '서버 오류가 발생하였습니다.' });
   } finally {
     console.log('Finished');
   }

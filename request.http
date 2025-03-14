@@ -1,0 +1,32 @@
+### 그룹 생성 요청
+POST http://localhost:3000/groups
+Content-Type: application/json
+
+{
+  "ownerNickname": "user234",
+  "ownerPassword": "securePassword",
+  "name": "Study Group1",
+  "description": "A group for learning together",
+  "photo": "https://example.com/group-photo.jpg",
+  "goalRep": 100,
+  "discordURL": "https://discord.gg/example",
+  "invitationURL": "https://example.com/invite",
+  "tags": ["programming", "study", "JavaScript"]
+}
+
+
+### 그룹 정보 업데이트 요청
+PATCH  http://localhost:3000/groups/bedf3e8a-4364-4fa2-9605-e4e48eef3c5b
+Content-Type: application/json
+
+{
+  "ownerNickname": "user234",
+  "ownerPassword": "securePassword",
+  "name": "Study Group1",
+  "description": "Updated description for the group",
+  "photo": "https://example.com/updated-photo.jpg",
+  "goalRep": 150,
+  "discordURL": "https://discord.gg/updated-example",
+  "invitationURL": "https://example.com/updated-invite",
+  "tags": ["updated-programming", "updated-study", "updated-JavaScript"]
+}

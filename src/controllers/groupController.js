@@ -192,7 +192,7 @@ export const updateGroup = catchHandler(async (req, res) => {
   if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
   if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
-    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
+    return res.status(401).send({ message: '닉네임 또는 비밀번호가 일치하지 않습니다.' });
   }
 
   if (typeof goalRep !== 'number') {
@@ -254,7 +254,7 @@ export const deleteGroup = catchHandler(async (req, res) => {
   if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
   if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
-    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
+    return res.status(401).send({ message: '닉네임 또는 비밀번호가 일치하지 않습니다.' });
   }
 
   await prisma.group.delete({ where: { id: groupId } });
