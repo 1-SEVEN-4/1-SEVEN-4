@@ -44,7 +44,7 @@ model GroupBadge {
 
 model GroupTags {
   id        String   @id @default(uuid())
-  content   String[]
+  contents  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   groupId   String
