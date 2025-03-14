@@ -14,5 +14,5 @@ Content-Type: application/json
   "sports": "RUNNING", 
   "description": "뛰기", 
   "distance": 100, 
-  "photo":["/records/john_doe_running.jpg"]
+  "photo":["/uploads/1741934077915.png"]
 }

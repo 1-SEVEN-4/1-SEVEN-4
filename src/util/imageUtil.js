@@ -1,20 +1,10 @@
 import multer from 'multer';
 import path from 'path';
 import BadRequestError from '../lib/BadRequestError.js';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const uploadsDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadsDir);
+    cb(null, 'uploads');
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -35,9 +25,11 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 },
 });
 
 const imageUpload = (req, res) => {
+  console.log(req.files);
   if (req.files) {
     const filePaths = req.files.map(file => `/uploads/${file.filename}`);
     return res.status(200).json({ urls: filePaths });
