@@ -19,7 +19,8 @@ app.use(express.json());
 
 app.use('/ranking', rankingRoute);
 app.use('/uploads', express.static(path.resolve('uploads')));
-app.use('/groups', badgeRouter, groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute, groupLikeRoute);
+
+app.use('/groups', groupRoute, memberRoutes, recordRoute, recordListRoutes, imageRoute, groupLikeRoute, badgeRouter);
 
 app.use(defaultNotFoundHandler);
 app.use(globalErrorHandler);
