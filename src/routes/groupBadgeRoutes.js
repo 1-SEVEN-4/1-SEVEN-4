@@ -3,7 +3,7 @@ import { updateLikeCount, getGroupBadges } from '../controllers/groupbadgeContro
 
 const badgeRouter = express.Router();
 
-badgeRouter.route('/:name/:likeCounter').patch(updateLikeCount);
-badgeRouter.route('/:name/:groupBadges').get(getGroupBadges);
+badgeRouter.patch('/:name/likeCounter',updateLikeCount);
+badgeRouter.get('/:name/groupBadges',getGroupBadges);
 
 export default badgeRouter;

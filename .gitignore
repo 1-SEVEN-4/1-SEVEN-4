@@ -2,5 +2,7 @@
 .env
 /uploads
 .husky
-prisma/migrations/
+-v
+
+/prisma/migrations
 src/uploads/

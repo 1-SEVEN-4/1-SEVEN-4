@@ -1,5 +1,5 @@
 import prisma from '../src/config/prisma.js';
-import { GROUP, MEMBER, RECODE } from './mock.js';
+import { GROUP, MEMBER, RECORD } from './mock.js';
 
 async function main() {
   await prisma.group.deleteMany();
@@ -26,7 +26,7 @@ async function main() {
 
   // 4️⃣ 기록 데이터 삽입 (이미 memberId, groupId가 올바르므로 그대로 사용)
   await prisma.record.createMany({
-    data: RECODE,
+    data: RECORD,
     skipDuplicates: true,
   });
 
