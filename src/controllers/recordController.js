@@ -47,7 +47,7 @@ export const createRecord = catchHandler(async (req, res) => {
     time: record.time,
     distance,
     photo: record.photo.map(photoPath => {
-      return `${PORT}/${photoPath}`;
+      return `http://localhost:${PORT}${photoPath}`;
     }),
     members: {
       id: member.id,
