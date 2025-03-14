@@ -122,16 +122,3 @@ export async function getRecordDetail(req, res) {
     });
   }
 }
-
-    id: record.id,
-    sports: record.sports,
-    description: record.description || {},
-    time: record.time,
-    distance: record.distance,
-    photo: record.photo ? record.photo.split(',') : [],
-    members: {
-      id: record.member.id,
-      nickname: record.member.nickName,
-    },
-  });
-};

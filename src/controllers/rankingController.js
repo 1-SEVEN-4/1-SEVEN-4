@@ -9,7 +9,7 @@ const formatTime = seconds => {
 const getWeeklyRanking = async (req, res) => {
   try {
     const { groupId } = req.params;
-    const { page = 1, limit = 3 , offset = 3 } = req.query;
+    const { page = 1, limit = 3 } = req.query;
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
     const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));

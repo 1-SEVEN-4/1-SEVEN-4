@@ -1,6 +1,67 @@
+### 운동기록 생성을 위한 스탑워치 시작
+POST http://localhost:3000/groups/start
+
+
+### 운동기록 생성
+
+POST http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+Content-Type: application/json
+
+{
+  "sports": "SWIMMING",
+  "description": "string",
+  "distance": 20,
+  "photo": [
+    "https://example.com/cycling_group_photo.jpg"
+  ],
+  "nickName": "닉네임1",
+  "password": "hello7!"
+}
+
+### groupId에 속한 records 조회 
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+
+### groupId에 속한 records를 페이지네이션으로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?offset=0&limit=3
+
+### groupId에 속한 records를 오래된 순서로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=oldest
+
+### groupId에 속한 records를 최신순서로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=newest
+
+### groupId에 속한 records를 운동시간 내림차순으로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=longtime
+
+### groupId에 속한 records를 운동시간 오름차순으로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=shorttime
+
+### groupId에 속한 records를 닉네임으로 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?searchnickname=닉네임2
+
+
+###
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/weekly?page=2&limit=3
+
 ###
 
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/monthly
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###
 GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/weekly?page=2&limit=3
 
 ###

@@ -45,7 +45,6 @@ export const getGroup = catchHandler(async (req, res) => {
       ownerNickname: true,
       description: true,
       photo: true,
-      tags: true,
       goalRep: true,
       discordURL: true,
       invitationURL: true,
@@ -53,6 +52,11 @@ export const getGroup = catchHandler(async (req, res) => {
       createdAt: true,
       updatedAt: true,
       memberCount: true,
+      groupTags: {
+        select: {
+          contents: true
+        }
+      },
       _count: { select: { members: true } },
     },
     orderBy: orderByClause,
@@ -76,7 +80,9 @@ export const getGroup = catchHandler(async (req, res) => {
       discordWebhookUrl: group.discordURL,
       discordInviteUrl: group.invitationURL,
       likeCount: group.likeCount,
-      tags: group.tags || [],
+      groupTags: {
+        
+      },
       owner: {
         id: group.ownerNickname,
         nickname: group.ownerNickname,
@@ -93,10 +99,15 @@ export const getGroup = catchHandler(async (req, res) => {
 });
 
 export const getGroupDetail = catchHandler(async (req, res) => {
-  const { id } = req.params;
+  const { groupId } = req.params;
   const group = await prisma.group.findUnique({
     where: { id: groupId },
     include: {
+      groupTags: {
+        select: {
+          contents: true
+        }
+      },
       members: {
         select: {
           id: true,
