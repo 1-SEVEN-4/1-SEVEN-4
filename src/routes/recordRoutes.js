@@ -5,7 +5,7 @@ import { startTimer } from '../util/timeUtil.js';
 
 const recordRoute = express.Router();
 
-recordRoute.get('/:id', getRecordDetail);
+recordRoute.get('/:groupId/records/:recordId', getRecordDetail);
 recordRoute.post('/:groupId/records', createRecord);
 recordRoute.post('/start', startTimer);
 
