@@ -11,21 +11,21 @@ GET http://localhost:3000/groups?order=participantCount
 GET http://localhost:3000/groups?order=createdAt
 
 ### 그룹명으로 그룹조회
-GET http://localhost:3000/groups?search=testGroup3
+GET http://localhost:3000/groups?searchgroupname=testGroup3
 
 ### 그룹생성
 POST  http://localhost:3000/groups
 Content-Type: application/json
 
 {
-"name": "testGroup4",
+"name": "testGroup1",
 "description": "group description",
 "photo": "http://example.com/photo.png",
 "goalRep": 3,
 "discordURL": "http://discordURL.com/invite/test",
 "invitationURL": "http://invitationURL.com/invite",
 "tags": ["tag1", "tag2"],
-"ownerNickname": "testUser9",
+"ownerNickname": "testUser1",
 "ownerPassword": "password123"
 }
 
@@ -40,19 +40,19 @@ Content-Type: application/json
 
 
 ### groupId에 속한 nickname 생성
-POST  http://localhost:3000/groups/0cf80534-b517-415d-97b2-86bec91562b5/members
+POST  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
 
 {
-  "nickName": "닉네임8",
+  "nickName": "닉네임1",
   "password": "hello7!"
 }
 
 ### groupId에 속한 nickname 목록 조회
-GET  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/members
+GET  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 
 ### groupId에 속한 nickname 삭제
-DELETE  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/members
+DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
 
 {

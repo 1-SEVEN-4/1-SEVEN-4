@@ -146,7 +146,7 @@ export const createGroup = catchHandler(async (req, res) => {
   });
 
   if (existName) {
-    return res.status(400).send({ message: '이미 존재하는 그룹명 입니다.' });
+    return res.status(400).send({ message: '이미 존재하는 그룹명입니다.' });
   }
 
   const newGroup = await prisma.group.create({

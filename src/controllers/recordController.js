@@ -1,5 +1,5 @@
 import prisma from '../config/prisma.js';
-import { stopTimer } from '../util/timeUtil.js';
+import { timeInt, formatTime } from '../util/timeUtil.js';
 import discordNotice from '../util/noticeUtil.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
@@ -28,14 +28,14 @@ export const createRecord = catchHandler(async (req, res) => {
       .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
-  const timerData = stopTimer();
-  const { elapsedSeconds, elapsedTime } = timerData;
+  const timerData = timeInt();
+  const { elapsedSeconds } = timerData;
 
   const record = await prisma.record.create({
     data: {
       sports,
       description,
-      time: elapsedTime,
+      time: elapsedSeconds,
       distance,
       photo,
       memberId: member.id,
@@ -47,6 +47,8 @@ export const createRecord = catchHandler(async (req, res) => {
     id: record.id,
     sports,
     description,
+    distance,
+    time: formatTime(record.time),
     photo: record.photo.map(photoPath => {
       return `${PORT}/${photoPath}`;
     }),
@@ -104,7 +106,7 @@ export async function getRecordDetail(req, res) {
       id: record.id,
       sports: record.sports,
       description: record.description || {},
-      time: record.time,
+      time: formatTime(record.time),
       distance: record.distance,
       photo: record.photo ? record.photo.split(',') : [],
       members: {

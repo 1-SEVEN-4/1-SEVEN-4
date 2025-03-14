@@ -1,5 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
+import { timeToString, formatTime } from '../util/timeUtil.js';
 
 const getRecordList = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -55,7 +56,7 @@ const getRecordList = catchHandler(async (req, res) => {
     id: record.id,
     sports: record.sports,
     description: record.description,
-    time: record.time,
+    time: formatTime(record.time),
     distance: record.distance,
     photo: record.photo,
     createdAt: record.createdAt,
