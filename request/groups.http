@@ -3,14 +3,14 @@ POST  http://localhost:3000/groups
 Content-Type: application/json
 
 {
-"name": "testGroup1",
+"name": "testGroup2",
 "description": "group description",
 "photo": "http://example.com/photo.png",
 "goalRep": 3,
 "discordURL": "http://discordURL.com/invite/test",
 "invitationURL": "http://invitationURL.com/invite",
 "tags": ["tag1", "tag2"],
-"ownerNickname": "testUser1",
+"ownerNickname": "testUser2",
 "ownerPassword": "password123"
 }
 
@@ -18,13 +18,13 @@ Content-Type: application/json
 GET http://localhost:3000/groups/
 
 ### 수정
-PATCH  http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d
+PATCH  http://localhost:3000/groups/2fe9a5b8-a316-445f-a789-f83f9e05f3eb
 Content-Type: application/json
 
 {
-  "ownerNickname": "testUser1",
+  "ownerNickname": "testUser2",
   "ownerPassword": "password123",
-  "name": "StudyGroup1",
+  "name": "StudyGroup3",
   "description": "Updated description for the group",
   "photo": "https://example.com/updated-photo.jpg",
   "goalRep": 150,
@@ -34,10 +34,10 @@ Content-Type: application/json
 }
 
 ### 그룹상세조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d
+GET http://localhost:3000/groups/2fe9a5b8-a316-445f-a789-f83f9e05f3eb
 
 ### 그룹 추천
-POST http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/likes
+POST http://localhost:3000/groups/2fe9a5b8-a316-445f-a789-f83f9e05f3eb/likes
 
 //groupbadge 조회
 ###
@@ -63,17 +63,17 @@ DELETE http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974/likes
 
 
 ### 그룹삭제
-DELETE  http://localhost:3000/groups/566a81c4-513c-4368-a437-4ce055f2a974
+DELETE  http://localhost:3000/groups/
 Content-Type: application/json
 
 {
-  "ownerNickname": "testUser3",
+  "ownerNickname": "testUser1",
   "ownerPassword": "password123"
 }
 
 
 ### 멤버 참여
-POST  http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/members
+POST  http://localhost:3000/groups//members
 Content-Type: application/json
 
 {
@@ -130,7 +130,7 @@ POST  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
 Content-Type: application/json
 
 {
-  "nickName": "닉네임1",
+  "nickName": "닉네임10",
   "password": "hello7!"
 }
 

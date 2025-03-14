@@ -302,6 +302,7 @@ export const deleteGroup = catchHandler(async (req, res) => {
   const { ownerNickname, ownerPassword } = req.body;
 
   const group = await prisma.group.findUnique({ where: { id: groupId } });
+  
   if (!group)
     return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
@@ -313,8 +314,8 @@ export const deleteGroup = catchHandler(async (req, res) => {
       .status(401)
       .send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
   }
-
-  await prisma.group.delete({ where: { id: groupId } });
+  console.log(group);
+  await prisma.group.delete({ where: { id: groupId } }); 
 
   return res.status(200).send({ message: '그룹이 삭제되었습니다.' });
 });

@@ -48,7 +48,7 @@ model GroupTags {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   groupId   String
-  group     Group    @relation(fields: [groupId], references: [id])
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 model Members {

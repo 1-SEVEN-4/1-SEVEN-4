@@ -9,7 +9,6 @@ const formatTime = seconds => {
 const getWeeklyRanking = async (req, res) => {
   try {
     const { groupId } = req.params;
-    const { page = 1, limit = 3 } = req.query;
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
     const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));
@@ -24,8 +23,6 @@ const getWeeklyRanking = async (req, res) => {
       _count: { id: true },
       where: {groupId : groupId , createdAt: { gte: startOfWeek, lte: endOfWeek } },
       orderBy: { _sum: { time: 'desc' } },
-      skip: (page - 1) * limit,
-      take: parseInt(limit),
     });
 
     const result = await Promise.all(
@@ -43,23 +40,7 @@ const getWeeklyRanking = async (req, res) => {
         };
       }),
     );
-    const totalRecords = await prisma.record.count({
-      where: {
-        groupId: groupId,
-        createdAt: { gte: startOfWeek, lte: endOfWeek },
-      },
-    });
 
-    const totalPages = Math.ceil(totalRecords / limit); 
-
-   
-    res.json({
-      rankings: result,
-      totalRecords, 
-      totalPages, 
-      currentPage: page, 
-      limit,       
-    });
 
     res.json({ rankings: result });
   } catch (error) {

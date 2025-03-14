@@ -40,12 +40,23 @@ GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?or
 GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?searchnickname=닉네임2
 
 
-###
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/weekly?page=2&limit=3
+### 주간 랭킹 조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/weekly
 
-###
-
+### 월간 랭킹 조회 
 GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/monthly
+
+### 멤버 참여 취소소
+DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
+Content-Type: application/json
+
+{
+  "nickName": "닉네임10",
+  "password": "hello7!"
+}
+
+### 운동기록 목록조회
+GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records/4ca4d8c1-f41d-4394-898c-ed497c4a3fd0
 
 
 
