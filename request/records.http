@@ -4,50 +4,50 @@ POST http://localhost:3000/groups/start
 
 ### 운동기록 생성
 
-POST http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+POST http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records
 Content-Type: application/json
 
 {
   "sports": "SWIMMING",
   "description": "string",
-  "distance": 20,
+  "distance": 7,
   "photo": [
     "https://example.com/cycling_group_photo.jpg"
   ],
-  "nickName": "닉네임1",
+  "nickName": "닉네임7",
   "password": "hello7!"
 }
 
-### groupId에 속한 records 조회 
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+### 그룹에 속한 기록 조회 
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records
 
-### groupId에 속한 records를 페이지네이션으로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?offset=0&limit=3
+### 그룹에 속한 기록을 페이지네이션으로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?offset=0&limit=3
 
-### groupId에 속한 records를 오래된 순서로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=oldest
+### 그룹에 속한 기록을 오래된 순서로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?order=oldest
 
-### groupId에 속한 records를 최신순서로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=newest
+### 그룹에 속한 기록을 최신순서로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?order=newest
 
-### groupId에 속한 records를 운동시간 내림차순으로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=longtime
+### 그룹에 속한 기록을 운동시간 내림차순으로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?order=longtime
 
-### groupId에 속한 records를 운동시간 오름차순으로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?order=shorttime
+### 그룹에 속한 기록을 운동시간 오름차순으로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?order=shorttime
 
-### groupId에 속한 records를 닉네임으로 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?searchnickname=닉네임2
+### 그룹에 속한 기록을 닉네임으로 조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records?searchnickname=닉네임1
 
 
 ### 주간 랭킹 조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/weekly
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/ranking/weekly
 
 ### 월간 랭킹 조회 
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/ranking/monthly
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/ranking/monthly
 
-### 멤버 참여 취소소
-DELETE  http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/members
+### 멤버 참여 취소
+DELETE  http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/members
 Content-Type: application/json
 
 {
@@ -55,8 +55,8 @@ Content-Type: application/json
   "password": "hello7!"
 }
 
-### 운동기록 목록조회
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records/4ca4d8c1-f41d-4394-898c-ed497c4a3fd0
+### 운동기록 상세조회
+GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records/c5fbca54-5bcb-4dc5-aef4-41fbe2fab8b8
 
 
 
