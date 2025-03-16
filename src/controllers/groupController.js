@@ -4,19 +4,12 @@ import { CreateGroupSchema, validationError } from '../util/superstruct.js';
 import prisma from '../config/prisma.js';
 
 export const getGroup = catchHandler(async (req, res) => {
-  const {
-    page = 1,
-    limit = 10,
-    order = 'newest',
-    orderBy = 'createdAt',
-    searchgroupname = '',
-  } = req.query;
+  const { page = 1, limit = 10, order = 'newest', orderBy = 'createdAt', searchgroupname = '' } = req.query;
 
   const validOrderBy = ['recommendation', 'participantCount', 'createdAt'];
   if (!validOrderBy.includes(orderBy)) {
     return res.status(400).send({
-      message:
-        'orderBy parameter는 values: [‘likeCount’, ‘memberCount’, ‘createdAt’]를 포함해야합니다.',
+      message: 'orderBy parameter는 values: [‘likeCount’, ‘memberCount’, ‘createdAt’]를 포함해야합니다.',
     });
   }
 
@@ -54,8 +47,8 @@ export const getGroup = catchHandler(async (req, res) => {
       memberCount: true,
       groupTags: {
         select: {
-          contents: true
-        }
+          contents: true,
+        },
       },
       _count: { select: { members: true } },
     },
@@ -65,9 +58,7 @@ export const getGroup = catchHandler(async (req, res) => {
   });
 
   const total = await prisma.group.count({
-    where: {
-      name: { contains: searchgroupname, mode: 'insensitive' },
-    },
+    data: groups.id,
   });
 
   res.status(200).send({
@@ -75,24 +66,24 @@ export const getGroup = catchHandler(async (req, res) => {
       id: group.id,
       name: group.name,
       description: group.description || '',
-      photoUrl: group.photo || '',
+      photo: group.photo || '',
       goalRep: group.goalRep,
-      discordWebhookUrl: group.discordURL,
-      discordInviteUrl: group.invitationURL,
+      discordURL: group.discordURL,
+      invitationURL: group.invitationURL,
       likeCount: group.likeCount,
-      groupTags: {
-        
-      },
+      groupTags: group.groupTags.map(groupTag => ({
+        contents: JSON.parse(groupTag.contents),
+      })),
       owner: {
         id: group.ownerNickname,
         nickname: group.ownerNickname,
         createdAt: group.createdAt,
         updatedAt: group.updatedAt,
       },
-      participants: [],
+      memberCount: [],
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
-      badges: [],
+      groupBadge: [],
     })),
     total,
   });
@@ -105,8 +96,8 @@ export const getGroupDetail = catchHandler(async (req, res) => {
     include: {
       groupTags: {
         select: {
-          contents: true
-        }
+          contents: true,
+        },
       },
       members: {
         select: {
@@ -116,7 +107,14 @@ export const getGroupDetail = catchHandler(async (req, res) => {
           updatedAt: true,
         },
       },
-      groupBadge: true,
+      groupBadge: {
+        select: {
+          groupBadgeId: true,
+          groupBadgeName: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
       ownerPassword: false,
     },
   });
@@ -132,17 +130,8 @@ export const createGroup = catchHandler(async (req, res) => {
     return res.status(400).send({ message });
   }
 
-  const {
-    ownerNickname,
-    ownerPassword,
-    name,
-    description,
-    photo,
-    goalRep,
-    discordURL,
-    invitationURL,
-    tags,
-  } = validatedData;
+  const { ownerNickname, ownerPassword, name, description, photo, goalRep, discordURL, invitationURL, tags } =
+    validatedData;
 
   const existNickName = await prisma.members.findFirst({
     where: { nickName: ownerNickname },
@@ -217,33 +206,17 @@ export const createGroup = catchHandler(async (req, res) => {
 
 export const updateGroup = catchHandler(async (req, res) => {
   const { groupId } = req.params;
-  const {
-    ownerNickname,
-    ownerPassword,
-    name,
-    description,
-    photo,
-    goalRep,
-    discordURL,
-    invitationURL,
-    tags,
-  } = req.body;
+  const { ownerNickname, ownerPassword, name, description, photo, goalRep, discordURL, invitationURL, tags } = req.body;
 
   const group = await prisma.group.findUnique({
     where: { id: groupId },
     include: { members: true, groupBadge: true },
   });
 
-  if (!group)
-    return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
+  if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
-  if (
-    ownerNickname !== group.ownerNickname ||
-    ownerPassword !== group.ownerPassword
-  ) {
-    return res
-      .status(401)
-      .send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
+  if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
+    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
   }
 
   if (typeof goalRep !== 'number') {
@@ -302,20 +275,14 @@ export const deleteGroup = catchHandler(async (req, res) => {
   const { ownerNickname, ownerPassword } = req.body;
 
   const group = await prisma.group.findUnique({ where: { id: groupId } });
-  
-  if (!group)
-    return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
 
-  if (
-    ownerNickname !== group.ownerNickname ||
-    ownerPassword !== group.ownerPassword
-  ) {
-    return res
-      .status(401)
-      .send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
+  if (!group) return res.status(404).send({ message: '그룹을 찾을 수 없습니다.' });
+
+  if (ownerNickname !== group.ownerNickname || ownerPassword !== group.ownerPassword) {
+    return res.status(401).send({ message: '닉네임 혹은 비밀번호를 확인해주세요.' });
   }
   console.log(group);
-  await prisma.group.delete({ where: { id: groupId } }); 
+  await prisma.group.delete({ where: { id: groupId } });
 
   return res.status(200).send({ message: '그룹이 삭제되었습니다.' });
 });
