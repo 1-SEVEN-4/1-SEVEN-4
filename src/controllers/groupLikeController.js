@@ -1,11 +1,12 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const likeCount = catchHandler(async (req, res) => {
-  const { id } = req.params;
+  const { groupId } = req.params;
 
   const group = await prisma.group.findUnique({
-    where: { id },
+    where: { id: groupId },
   });
 
   if (!group) {
@@ -13,18 +14,18 @@ export const likeCount = catchHandler(async (req, res) => {
   }
 
   const updateGroup = await prisma.group.update({
-    where: { id },
+    where: { id: groupId },
     data: { likeCount: (group.likeCount += 1) },
   });
-
+  await checkAndAssignBadge(groupId);
   res.status(200).send(updateGroup);
 });
 
 export const unLikeCount = catchHandler(async (req, res) => {
-  const { id } = req.params;
+  const { groupId } = req.params;
 
   const group = await prisma.group.findUnique({
-    where: { id },
+    where: { id: groupId },
   });
   if (!group) {
     return res.status(400).send({ message: '그룹을 찾을 수 없습니다.' });
@@ -35,7 +36,7 @@ export const unLikeCount = catchHandler(async (req, res) => {
   }
 
   const updateGroup = await prisma.group.update({
-    where: { id },
+    where: { id: groupId },
     data: { likeCount: (group.likeCount -= 1) },
   });
 

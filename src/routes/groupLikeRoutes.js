@@ -1,9 +1,9 @@
 import express from 'express';
 import { likeCount, unLikeCount } from '../controllers/groupLikeController.js';
 
-const groupRoute = express.Router();
+const groupLikeRoute = express.Router();
 
-groupRoute.post('/:groupId/likes', likeCount);
-groupRoute.delete('/:groupId/likes', unLikeCount);
+groupLikeRoute.post('/:groupId/likes', likeCount);
+groupLikeRoute.delete('/:groupId/likes', unLikeCount);
 
-export default groupRoute;
+export default groupLikeRoute;

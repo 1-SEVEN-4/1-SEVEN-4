@@ -1,5 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
+import { checkAndAssignBadge } from  './groupbadgeController.js';
 
 export const createMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -12,27 +13,25 @@ export const createMember = catchHandler(async (req, res) => {
       groupId,
     },
   });
-
+  await checkAndAssignBadge(groupId);
   res.status(201).send(newMember);
 });
 
 export const getMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
 
-  const members = await prisma.members.findMany({
-    where: {
-      groupId,
-    },
+  const member = await prisma.members.findMany({
+    where: { groupId },
   });
 
-  res.status(200).send(members);
+  res.status(200).send(member);
 });
 
 export const deleteMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
   const { nickName } = req.body;
 
-  const member = await prisma.members.findUnique({
+  const member = await prisma.members.findFirst({
     where: { groupId, nickName },
   });
 
