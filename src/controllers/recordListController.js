@@ -4,12 +4,7 @@ import { timeToString, formatTime } from '../util/timeUtil.js';
 
 const getRecordList = catchHandler(async (req, res) => {
   const { groupId } = req.params;
-  const {
-    offset = 0,
-    limit = 10,
-    order = 'newest',
-    searchnickname,
-  } = req.query;
+  const { offset = 0, limit = 10, order = 'newest', searchnickname } = req.query;
 
   let orderBy;
   switch (order) {
@@ -52,6 +47,10 @@ const getRecordList = catchHandler(async (req, res) => {
     },
   });
 
+  const total = await prisma.record.count({
+    data: records.id,
+  });
+
   const responseRecords = records.map(record => ({
     id: record.id,
     sports: record.sports,
@@ -64,7 +63,7 @@ const getRecordList = catchHandler(async (req, res) => {
     members: record.members,
   }));
 
-  res.status(200).send(responseRecords);
+  res.status(200).send({ data: responseRecords, total });
 });
 
 export default getRecordList;
