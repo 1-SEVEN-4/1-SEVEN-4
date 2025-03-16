@@ -1,4 +1,5 @@
 import prisma from '../config/prisma.js';
+import { catchHandler } from '../lib/catchHandler.js';
 
 const formatTime = seconds => {
   const minutes = Math.floor(seconds / 60);
@@ -6,92 +7,80 @@ const formatTime = seconds => {
   return `${minutes}분 ${remainingSeconds}초`;
 };
 
-const getWeeklyRanking = async (req, res) => {
-  try {
-    const { groupId } = req.params;
-    const now = new Date();
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-    const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));
+const getWeeklyRanking = catchHandler(async (req, res) => {
+  const { groupId } = req.params;
+  const { page = 1, limit = 5 } = req.query;
+  const now = new Date();
+  const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+  const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6));
 
-    const group = await prisma.group.findUnique({
-      where : { id : groupId }  
-    });
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+  });
 
-    const rankings = await prisma.record.groupBy({
-      by: ['memberId'],
-      _sum: { time: true },
-      _count: { id: true },
-      where: {groupId : groupId , createdAt: { gte: startOfWeek, lte: endOfWeek } },
-      orderBy: { _sum: { time: 'desc' } },
-    });
+  const rankings = await prisma.record.groupBy({
+    by: ['memberId'],
+    _sum: { time: true },
+    _count: { id: true },
+    where: { groupId: groupId, createdAt: { gte: startOfWeek, lte: endOfWeek } },
+    orderBy: { _sum: { time: 'desc' } },
+    skip: (page - 1) * limit,
+    take: parseInt(limit),
+  });
 
-    const result = await Promise.all(
-      rankings.map(async record => {
-        const member = await prisma.members.findUnique({
-          where: { id: record.memberId },
-        });
+  const result = await Promise.all(
+    rankings.map(async record => {
+      const member = await prisma.members.findUnique({
+        where: { id: record.memberId },
+      });
 
-        return {
-          nickname: member ? member.nickName : '알 수 없음',
-          // eslint-disable-next-line no-underscore-dangle
-          recordCount: record._count.id,
-          // eslint-disable-next-line no-underscore-dangle
-          recordTime: formatTime(record._sum.time),
-        };
-      }),
-    );
+      return {
+        nickname: member ? member.nickName : '알 수 없음',
+        recordCount: record._count.id,
+        recordTime: formatTime(record._sum.time),
+      };
+    }),
+  );
 
+  return res.json({ rankings: result });
+});
 
-    res.json({ rankings: result });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: '서버 오류 발생' });
-  }
-};
+const getMonthlyRanking = catchHandler(async (req, res) => {
+  const { groupId } = req.params;
+  const { page = 1, limit = 5 } = req.query;
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-const getMonthlyRanking = async (req, res) => {
-  try {
-    const { groupId } = req.params;
-    const { page = 1, limit = 5 } = req.query;
-    const now = new Date();
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const group = await prisma.group.findUnique({
+    where: { id: groupId },
+  });
 
-    const group = await prisma.group.findUnique({
-      where : { id : groupId }  
-    });
+  const rankings = await prisma.record.groupBy({
+    by: ['memberId'],
+    _sum: { time: true },
+    _count: { id: true },
+    where: { groupId: groupId, createdAt: { gte: startOfMonth, lte: endOfMonth } },
+    orderBy: { _sum: { time: 'desc' } },
+    skip: (page - 1) * limit,
+    take: parseInt(limit),
+  });
 
-    const rankings = await prisma.record.groupBy({
-      by: ['memberId'],
-      _sum: { time: true },
-      _count: { id: true },
-      where: {groupId : groupId , createdAt: { gte: startOfMonth, lte: endOfMonth } },
-      orderBy: { _sum: { time: 'desc' } },
-      skip: (page - 1) * limit,
-      take: parseInt(limit),
-    });
+  const result = await Promise.all(
+    rankings.map(async record => {
+      const member = await prisma.members.findUnique({
+        where: { id: record.memberId },
+      });
 
-    const result = await Promise.all(
-      rankings.map(async record => {
-        const member = await prisma.members.findUnique({
-          where: { id: record.memberId },
-        });
+      return {
+        nickname: member ? member.nickName : '알 수 없음',
+        recordCount: record._count.id,
+        recordTime: formatTime(record._sum.time),
+      };
+    }),
+  );
 
-        return {
-          nickname: member ? member.nickName : '알 수 없음',
-          // eslint-disable-next-line no-underscore-dangle
-          recordCount: record._count.id,
-          // eslint-disable-next-line no-underscore-dangle
-          recordTime: formatTime(record._sum.time),
-        };
-      }),
-    );
-    
-    res.json({ rankings: result });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: '서버 오류 발생' });
-  }
-};
+  return res.json({ rankings: result });
+});
 
 export default { getWeeklyRanking, getMonthlyRanking };
