@@ -1,6 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
-import { checkAndAssignBadge } from  './groupbadgeController.js';
+import { checkAndAssignBadge } from './groupbadgeController.js';
 
 export const likeCount = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -18,7 +18,16 @@ export const likeCount = catchHandler(async (req, res) => {
     data: { likeCount: (group.likeCount += 1) },
   });
   await checkAndAssignBadge(groupId);
-  res.status(200).send(updateGroup);
+
+  const result = {
+    id: updateGroup.id,
+    name: updateGroup.name,
+    ownerNickname: updateGroup.ownerNickname,
+    likeCount: updateGroup.likeCount,
+    createdAt: updateGroup.createdAt,
+    updatedAt: updateGroup.updatedAt,
+  };
+  res.status(200).send(result);
 });
 
 export const unLikeCount = catchHandler(async (req, res) => {
@@ -40,5 +49,13 @@ export const unLikeCount = catchHandler(async (req, res) => {
     data: { likeCount: (group.likeCount -= 1) },
   });
 
-  res.status(200).send(updateGroup);
+  const result = {
+    id: updateGroup.id,
+    name: updateGroup.name,
+    ownerNickname: updateGroup.ownerNickname,
+    likeCount: updateGroup.likeCount,
+    createdAt: updateGroup.createdAt,
+    updatedAt: updateGroup.updatedAt,
+  };
+  res.status(200).send(result);
 });
