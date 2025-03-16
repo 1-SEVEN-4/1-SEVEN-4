@@ -14,6 +14,8 @@ export function globalErrorHandler(err, req, res, next) {
   if (err.code) {
     console.log(err);
     return res.status(500).send({ message: '데이터 생성에 실패하였습니다.' });
-  }
+  } else err;
+  console.log(err);
+  return res.status(500).send({ message: '서버에 문제가 발생했습니다.' });
   next(err);
 }
