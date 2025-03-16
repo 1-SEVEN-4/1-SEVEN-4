@@ -1,6 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
-import { checkAndAssignBadge } from  './groupbadgeController.js';
+import { checkAndAssignBadge } from './groupbadgeController.js';
 
 export const createMember = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -39,5 +39,5 @@ export const deleteMember = catchHandler(async (req, res) => {
     where: { id: member.id },
   });
 
-  res.status(204).send();
+  res.status(200).send({ message: '닉네임이 제거되었습니다.' });
 });
