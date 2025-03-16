@@ -1,15 +1,10 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
-import { timeToString, formatTime } from '../util/timeUtil.js';
+import { timeToString, formatTime } from './controllers/timeController.js';
 
 const getRecordList = catchHandler(async (req, res) => {
   const { groupId } = req.params;
-  const {
-    offset = 0,
-    limit = 10,
-    order = 'newest',
-    searchnickname,
-  } = req.query;
+  const { offset = 0, limit = 10, order = 'newest', searchnickname } = req.query;
 
   let orderBy;
   switch (order) {

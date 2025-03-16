@@ -1,6 +1,6 @@
 import express from 'express';
 import { catchHandler } from '../lib/catchHandler.js';
-import { upload, imageUpload } from '../util/imageUtil.js';
+import { upload, imageUpload } from '../controllers/imageController.js';
 
 const imageRoute = express.Router();
 

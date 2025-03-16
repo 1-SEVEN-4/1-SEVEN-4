@@ -1,9 +1,9 @@
 import prisma from '../config/prisma.js';
-import { timeInt, formatTime } from '../util/timeUtil.js';
-import discordNotice from '../util/noticeUtil.js';
+import { timeInt, formatTime } from './timeController.js';
+import discordNotice from './noticeController.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
-import { checkAndAssignBadge } from  './groupbadgeController.js';
+import { checkAndAssignBadge } from './groupbadgeController.js';
 
 export const createRecord = catchHandler(async (req, res) => {
   const { groupId } = req.params;
@@ -15,9 +15,7 @@ export const createRecord = catchHandler(async (req, res) => {
 
   console.log(groupId, nickName);
   if (!member) {
-    return res
-      .status(400)
-      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const group = await prisma.group.findUnique({
@@ -25,9 +23,7 @@ export const createRecord = catchHandler(async (req, res) => {
   });
 
   if (member.password !== password) {
-    return res
-      .status(400)
-      .send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
   const timerData = timeInt();
@@ -39,7 +35,7 @@ export const createRecord = catchHandler(async (req, res) => {
       description,
       time: elapsedSeconds,
       distance,
-      photo,  // photo는 이미 배열로 저장되고 처리됩니다.
+      photo, // photo는 이미 배열로 저장되고 처리됩니다.
       memberId: member.id,
       groupId,
     },
@@ -82,7 +78,7 @@ export async function getRecordDetail(req, res) {
         description: true,
         time: true,
         distance: true,
-        photo: true,  // photo 필드는 이미 배열로 반환됩니다.
+        photo: true, // photo 필드는 이미 배열로 반환됩니다.
         createdAt: true,
         updatedAt: true,
         members: {
@@ -93,7 +89,7 @@ export async function getRecordDetail(req, res) {
         },
       },
     });
-    
+
     if (!record) {
       return res.status(404).send({
         message: '기록을 찾을 수 없습니다.',
@@ -108,7 +104,7 @@ export async function getRecordDetail(req, res) {
       time: formatTime(record.time),
       distance: record.distance,
       photo: record.photo.map(photoPath => {
-        return `${PORT}/${photoPath}`;  // 각 사진 경로를 포트와 결합하여 반환
+        return `${PORT}/${photoPath}`; // 각 사진 경로를 포트와 결합하여 반환
       }),
       members: {
         id: record.members.id,
