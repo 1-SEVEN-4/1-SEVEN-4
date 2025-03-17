@@ -6,7 +6,7 @@ import { startTimer } from '../controllers/timeController.js';
 const recordRoute = express.Router();
 
 recordRoute.get('/:groupId/records/:recordId', getRecordDetail);
-recordRoute.post('/:groupId/records', createRecord);
-recordRoute.post('/start', startTimer);
+recordRoute.patch('/:recordId/records', createRecord);
+recordRoute.post('/:groupId/start', startTimer);
 
 export default recordRoute;

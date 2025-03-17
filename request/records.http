@@ -1,25 +1,25 @@
 ### 운동기록 생성을 위한 스탑워치 시작
-POST http://localhost:3000/groups/start
+POST http://localhost:3000/groups/a8a9140e-c234-4722-9255-cb87ac3e5586/start
+Content-Type: application/json
 
 
 ### 운동기록 생성
-
-POST http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+PATCH http://localhost:3000/groups/44d8b632-b157-441e-bf4f-f508bba08987/records
 Content-Type: application/json
 
 {
+  "nickName": "testUser2",
+  "password": "password123", 
   "sports": "SWIMMING",
   "description": "string",
-  "distance": 20,
   "photo": [
-    "https://example.com/cycling_group_photo.jpg"
-  ],
-  "nickName": "닉네임1",
-  "password": "hello7!"
+    "/uploads/1742177034230.png"],
+  "distance": 0
 }
 
+
 ### groupId에 속한 records 조회 
-GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records
+GET http://localhost:3000/groups/a8a9140e-c234-4722-9255-cb87ac3e5586/records
 
 ### groupId에 속한 records를 페이지네이션으로 조회
 GET http://localhost:3000/groups/dec33a7c-b0df-447e-bd5c-aff2976df99d/records?offset=0&limit=3

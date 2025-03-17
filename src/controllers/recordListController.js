@@ -1,6 +1,6 @@
 import prisma from '../config/prisma.js';
 import { catchHandler } from '../lib/catchHandler.js';
-import { timeToString, formatTime } from './controllers/timeController.js';
+import { formatTime } from './timeController.js';
 
 const getRecordList = catchHandler(async (req, res) => {
   const { groupId } = req.params;

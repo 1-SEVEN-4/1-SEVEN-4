@@ -34,7 +34,7 @@ Content-Type: application/json
 }
 
 ### 그룹상세조회
-GET http://localhost:3000/groups/2fe9a5b8-a316-445f-a789-f83f9e05f3eb
+GET http://localhost:3000/groups/a8a9140e-c234-4722-9255-cb87ac3e5586
 
 ### 그룹 추천
 POST http://localhost:3000/groups/2fe9a5b8-a316-445f-a789-f83f9e05f3eb/likes

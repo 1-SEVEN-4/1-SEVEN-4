@@ -63,19 +63,20 @@ model Members {
 }
 
 model Record {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   sports      Sports
   description String
-  startTime   Int
-  time        Int
+  startTime   DateTime
+  endTime     DateTime?
+  time        Int?
   distance    Int
   photo       String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  memberId    String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  memberId    String?
   groupId     String
-  members     Members  @relation(fields: [memberId], references: [id], onDelete: Cascade)
-  groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  members     Members?  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  groups      Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
 enum Sports {
