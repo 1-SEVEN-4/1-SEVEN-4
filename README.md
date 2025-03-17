@@ -40,7 +40,15 @@
 
 박지은
 
+![](https://velog.velcdn.com/images/shinminsoo317/post/aa03f20e-aad0-47b8-82e3-4e6cff83c1f9/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/7545fa2d-ad9b-4e73-bf12-969c6412ac35/image.png)
+
 송유택
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/aaed23fa-bc22-442f-b50b-a2efa233c7fa/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/d025cf7b-f350-473c-84c2-a07885636a8b/image.png)
 
 신민수
 
@@ -73,7 +81,19 @@
 
 정오현
 
+![](https://velog.velcdn.com/images/shinminsoo317/post/0782b748-1b27-42f0-af85-30a41e5a7731/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/cb9468d6-f494-4428-804a-3ec14442faf4/image.png)
+
 조연정
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/a7144e46-516c-4be9-8bce-ddbf26186d17/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/a9bc4893-ffa2-471c-9fd2-5cb23d479a54/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/c159e0ea-d2ed-4d95-b270-7ba4e792a48b/image.png)
+
+![](https://velog.velcdn.com/images/shinminsoo317/post/a74cfbf3-4b90-45b2-ac2b-56ced23478a2/image.png)
 
 ---
 
