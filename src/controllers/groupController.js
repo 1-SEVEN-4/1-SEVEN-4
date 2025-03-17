@@ -119,6 +119,10 @@ export const getGroupDetail = catchHandler(async (req, res) => {
     },
   });
 
+  if (!group) {
+    return res.status(400).send({ message: '해당 그룹을 찾을 수 없습니다.' });
+  }
+
   res.status(200).send(group);
 });
 
