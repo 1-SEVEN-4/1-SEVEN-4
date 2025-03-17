@@ -1,6 +1,6 @@
 import prisma from '../config/prisma.js';
-import { timeInt, formatTime } from '../util/timeUtil.js';
-import discordNotice from '../util/noticeUtil.js';
+import { timeInt, formatTime } from './timeController.js';
+import discordNotice from './noticeController.js';
 import { catchHandler } from '../lib/catchHandler.js';
 import { PORT } from '../config/index.js';
 import { checkAndAssignBadge } from './groupbadgeController.js';
