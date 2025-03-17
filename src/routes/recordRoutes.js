@@ -10,6 +10,6 @@ const recordRoute = express.Router();
 recordRoute.get('/:groupId/records/:recordId', validateGroupId, getRecordDetail);
 recordRoute.post('/:groupId/records', validateGroupId, validateLoginInfo);
 recordRoute.post('/:groupId/start', startTimer);
-recordRoute.patch(':/recordId/records', createRecord);
+recordRoute.patch('/:recordId/records', createRecord);
 
 export default recordRoute;

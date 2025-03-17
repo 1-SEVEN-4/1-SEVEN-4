@@ -6,57 +6,89 @@ import { PORT } from '../config/index.js';
 import { checkAndAssignBadge } from './groupbadgeController.js';
 
 export const createRecord = catchHandler(async (req, res) => {
-  const { groupId } = req.params;
+  const { recordId } = req.params;
   const { sports, description, distance, photo, nickName, password } = req.body;
 
-  const member = await prisma.members.findFirst({
-    where: { groupId, nickName },
+  if (!sports) {
+    return res.status(400).send({ message: '운동 종류(sports)를 입력해주세요.' });
+  }
+
+  if (!description) {
+    return res.status(400).send({ message: '기록 설명(description)을 입력해주세요.' });
+  }
+
+  if (distance === undefined || distance === null) {
+    return res.status(400).send({ message: '운동 거리(distance)를 입력해주세요.' });
+  }
+
+  if (!photo || photo.length === 0) {
+    return res.status(400).send({ message: '운동 사진(photo)을 입력해주세요.' });
+  }
+
+  const record = await prisma.record.findFirst({
+    where: { id: recordId },
+    include: {
+      members: true,
+      groups: true,
+    },
+  });
+
+  if (!record) {
+    return res.status(400).send({ message: '스톱워치가 시작되지 않았습니다.' });
+  }
+
+  const member = await prisma.members.findUnique({
+    where: {
+      nickName,
+      groupId: record.groupId,
+    },
   });
 
   if (!member) {
-    return res.status(400).send({ message: '닉네임이 일치하지 않습니다.' });
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
+  } else if (member.password !== password) {
+    return res.status(400).send({ message: '닉네임 또는 비밀번호를 확인해주세요.' });
   }
 
-  const group = await prisma.group.findUnique({
-    where: { id: groupId },
-  });
+  const end = new Date();
+  const { elapsedSeconds } = timeInt(record.startTime, end);
 
-  const timerData = timeInt();
-  const { elapsedSeconds } = timerData;
-
-  const record = await prisma.record.create({
+  const updateRecord = await prisma.record.update({
+    where: { id: recordId },
     data: {
       sports,
       description,
+      endTime: end,
       time: elapsedSeconds,
       distance,
-      photo, // photo는 이미 배열로 저장되고 처리됩니다.
-      memberId: member.id,
-      groupId,
+      photo: { set: photo },
+      members: {
+        connect: { id: member.id },
+      },
     },
   });
 
   const response = {
     id: record.id,
-    sports,
-    description,
-    time: formatTime(record.time),
-    distance,
+    sports: record.sports,
+    description: record.description,
+    time: formatTime(updateRecord.time),
+    distance: record.distance,
     photo: record.photo.map(photoPath => {
-      return `http://localhost:${PORT}/${photoPath}`;
+      return `http://localhost:${PORT}${photoPath}`;
     }),
-    createdAt: record.createdAt,
-    updatedAt: record.updatedAt,
     members: {
       id: member.id,
       nickName: member.nickName,
       createdAt: member.createdAt,
       updatedAt: member.updatedAt,
-      groupId,
+      groupId: record.groupId,
     },
+    createdAt: record.createdAt,
+    updatedAt: updateRecord.updatedAt,
   };
-  discordNotice(group.invitationURL, group.name, nickName);
-  await checkAndAssignBadge(groupId);
+  discordNotice(record.groups.invitationURL, record.groups.name, member.nickName);
+  await checkAndAssignBadge(record.groupId);
 
   res.status(201).send(response);
 });

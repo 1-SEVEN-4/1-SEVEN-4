@@ -68,7 +68,7 @@ model Record {
   description String
   startTime   DateTime
   endTime     DateTime
-  time        Int
+  time        Int?
   distance    Int
   photo       String[]
   createdAt   DateTime @default(now())

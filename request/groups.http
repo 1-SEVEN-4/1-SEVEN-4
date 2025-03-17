@@ -18,7 +18,7 @@ Content-Type: application/json
 GET http://localhost:3000/groups/
 
 ### 그룹 수정
-PATCH  http://localhost:3000/groups/b0c834b2-3a45-4b5f-a787-db94431388f4
+PATCH  http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844
 Content-Type: application/json
 
 {
