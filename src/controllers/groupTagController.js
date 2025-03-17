@@ -4,9 +4,10 @@ import { catchHandler } from '../lib/catchHandler.js';
 export const getGroupTags = catchHandler(async (req, res) => {
   const allTags = await prisma.groupTags.findMany({});
 
-  const uniqueTags = Array.from(new Map(allTags.map(tag => [tag.contents, tag])).values());
+  const tags = Array.from(new Map(allTags.map(tag => [tag.contents, tag])).values());
+  console.log(tags);
 
-  res.status(200).json(uniqueTags);
+  res.status(200).json(tags);
 });
 
 export const getGroupTagsDetail = catchHandler(async (req, res) => {
@@ -24,5 +25,6 @@ export const getGroupTagsDetail = catchHandler(async (req, res) => {
     return res.status(404).send({ message: '태그를 찾을 수 없습니다.' });
   }
 
+  console.log(tag);
   res.status(200).send(tag);
 });

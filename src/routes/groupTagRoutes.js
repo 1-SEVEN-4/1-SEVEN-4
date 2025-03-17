@@ -3,6 +3,8 @@ import { getGroupTags, getGroupTagsDetail } from '../controllers/groupTagControl
 
 const tagRoute = express();
 
+console.log('group tags routes');
+
 tagRoute.get('/', getGroupTags);
 tagRoute.get('/:tagId', getGroupTagsDetail);
 
