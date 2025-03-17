@@ -1,0 +1,62 @@
+### 운동기록 생성을 위한 스탑워치 시작
+POST http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844/start
+Content-Type: application/json
+
+
+### 운동기록 생성
+PATCH http://localhost:3000/groups/0a10a418-f2f7-49ee-8e91-15a1bdbd7efd/records
+Content-Type: application/json
+
+{
+  "nickName": "testUser11",
+  "password": "password123", 
+  "sports": "SWIMMING",
+  "description": "string",
+  "photo": [
+    "/uploads/1742177034230.png"],
+  "distance": 0
+}
+
+
+### 그룹에 속한 기록 조회 
+GET http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844/records
+
+### 그룹에 속한 기록을 페이지네이션으로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?offset=0&limit=3
+
+### 그룹에 속한 기록을 오래된 순서로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?order=oldest
+
+### 그룹에 속한 기록을 최신순서로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?order=newest
+
+### 그룹에 속한 기록을 운동시간 내림차순으로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?order=longtime
+
+### 그룹에 속한 기록을 운동시간 오름차순으로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?order=shorttime
+
+### 그룹에 속한 기록을 닉네임으로 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records?searchnickname=닉네임22
+
+
+### 주간 랭킹 조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/ranking/weekly
+
+### 주간 랭킹 조회(페이지네이션)
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/ranking/weekly?offset=0&limit=5
+
+### 월간 랭킹 조회(페이지네이션)
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/ranking/monthly?offset=0&limit=4
+
+### 멤버 참여 취소
+DELETE  http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/members
+Content-Type: application/json
+
+{
+  "nickName": "닉네임10",
+  "password": "hello7!"
+}
+
+### 운동기록 상세조회
+GET http://localhost:3000/groups/01cf7d34-7773-452a-8fa3-9db6a0189b92/records/c5fbca54-5bcb-4dc5-aef4-41fbe2fab8b8
