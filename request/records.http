@@ -1,7 +1,6 @@
 ### 운동기록 생성을 위한 스탑워치 시작
 POST http://localhost:3000/groups/start
 
-
 ### 운동기록 생성
 
 POST http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records
@@ -14,7 +13,7 @@ Content-Type: application/json
   "photo": [
     "https://example.com/cycling_group_photo.jpg"
   ],
-  "nickName": "닉네임7",
+  "nickName": "닉네임9",
   "password": "hello7!"
 }
 
@@ -57,79 +56,3 @@ Content-Type: application/json
 
 ### 운동기록 상세조회
 GET http://localhost:3000/groups/e80192b0-a32b-49db-b7f5-7726bd1f5c1b/records/c5fbca54-5bcb-4dc5-aef4-41fbe2fab8b8
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-###
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/weekly?page=2&limit=3
-
-###
-
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/ranking/monthly
-
-###
-GET http://localhost:3000/groups/7632cbfe-a3f8-4195-b7d7-1a789bb5c281/records
-
-### groupId에 속한 records 조회 
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
-
-### groupId에 속한 records를 페이지네이션으로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?offset=0&limit=3
-
-### groupId에 속한 records를 오래된 순서로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?order=oldest
-
-### groupId에 속한 records를 최신순서로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?order=newest
-
-### groupId에 속한 records를 운동시간 내림차순으로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?order=longtime
-
-### groupId에 속한 records를 운동시간 오름차순으로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?order=shorttime
-
-### groupId에 속한 records를 닉네임으로 조회
-GET http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records?searchnickname=닉네임2
-
-### 운동기록 생성을 위한 스탑워치 시작
-POST http://localhost:3000/groups/start
-
-
-### 운동기록 생성
-
-POST http://localhost:3000/groups/0cefeff8-b2ff-4d57-a19d-e7c02e394688/records
-Content-Type: application/json
-
-{
-  "sports": "SWIMMING",
-  "description": "string",
-  "distance": 20,
-  "photo": [
-    "https://example.com/cycling_group_photo.jpg"
-  ],
-  "nickName": "닉네임1",
-  "password": "hello7!"
-}
-
-
-###
-GET http://localhost:3000/groups/8dfe67ff-45a7-4bee-bd92-66bc9475361d/records/8d777393-a050-4828-9eea-7b2f4de3c7a5
-
-###
-GET http://localhost:3000/ranking/weekly
-
-###
-GET http://localhost:3000/groups/7632cbfe-a3f8-4195-b7d7-1a789bb5c281/records/4ca09a96-50af-44e8-ab8e-13e5b95ec444
-

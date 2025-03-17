@@ -9,7 +9,7 @@ export function startTimer(req, res) {
   isRunning = true;
   startTime = new Date();
 
-  res.status(201).send({ message: '타이머 시작', startTime });
+  res.status(201).send({ message: '타이머가 시작합니다.', startTime });
 }
 
 export const timeInt = () => {

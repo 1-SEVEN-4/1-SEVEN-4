@@ -13,6 +13,10 @@ export const createRecord = catchHandler(async (req, res) => {
     where: { groupId, nickName },
   });
 
+  if (!member) {
+    return res.status(400).send({ message: '닉네임이 일치하지 않습니다.' });
+  }
+
   const group = await prisma.group.findUnique({
     where: { id: groupId },
   });
@@ -39,7 +43,7 @@ export const createRecord = catchHandler(async (req, res) => {
     time: formatTime(record.time),
     distance,
     photo: record.photo.map(photoPath => {
-      return `http://localhost:${PORT}${photoPath}`;
+      return `http://localhost:${PORT}/${photoPath}`;
     }),
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,

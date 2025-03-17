@@ -2,7 +2,7 @@
 
 ## 4조
 
-4조 노션: https://marmalade-sneezeweed-5ce.notion.site/4-1a77cf17c64f808492ccd150ce3c9d11?pvs=4
+4조 노션 URL: https://marmalade-sneezeweed-5ce.notion.site/4-1a77cf17c64f808492ccd150ce3c9d11?pvs=4
 
 ---
 
@@ -23,6 +23,7 @@
 
 - Backend: Express.js, PrismaORM
 - Database: PostgreSQL
+- 배포: Render
 - 공통 Tool: Git & Github, Discord
 
 ---
