@@ -3,14 +3,14 @@ POST  http://localhost:3000/groups
 Content-Type: application/json
 
 {
-"name": "StudyGroup11",
+"name": "도전!",
 "description": "group description",
 "photo": "http://example.com/photo.png",
 "goalRep": 3,
 "discordURL": "http://discordURL.com/invite/test",
 "invitationURL": "http://invitationURL.com/invite",
 "tags": ["tag1", "tag2"],
-"ownerNickname": "testUser11",
+"ownerNickname": "testUser12",
 "ownerPassword": "password123"
 }
 
@@ -18,13 +18,13 @@ Content-Type: application/json
 GET http://localhost:3000/groups/
 
 ### 그룹 수정
-PATCH  http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844
+PATCH  http://localhost:3000/groups/442ae3d0-d858-4037-aa4d-9264bb3cf157
 Content-Type: application/json
 
 {
-  "ownerNickname": "testUser11",
+  "ownerNickname": "testUser12",
   "ownerPassword": "password123",
-  "name": "StudyGroup13",
+  "name": "StudyGroup14",
   "description": "Updated description for the group",
   "photo": "https://example.com/updated-photo.jpg",
   "goalRep": 150,
@@ -34,13 +34,13 @@ Content-Type: application/json
 }
 
 ### 그룹 상세조회
-GET http://localhost:3000/groups/d349fce5-b0c9-420d-8f56-246c1e637a21
+GET http://localhost:3000/groups/17f780af-8946-4692-9a9e-409c36558129
 
 ### 그룹 추천
-POST http://localhost:3000/groups/d349fce5-b0c9-420d-8f56-246c1e637a21/likes
+POST http://localhost:3000/groups/17f780af-8946-4692-9a9e-409c36558129/likes
 
 ### 그룹 배찌 조회
-GET http://localhost:3000/groups/StudyGroup5/groupBadges
+GET http://localhost:3000/groups/StudyGroup14/groupBadges
 
 ###그룹 목록 조회 - 최신순
 GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=createdAt
@@ -52,36 +52,36 @@ GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=recommenda
 GET http://localhost:3000/groups?page=1&limit=10&order=newest&orderBy=participantCount
 
 ### 그룹명으로 그룹 검색조회
-GET http://localhost:3000/groups?searchgroupname=StudyGroup3
+GET http://localhost:3000/groups?searchgroupname=StudyGroup13
 
 ### 그룹 좋아요 취소
-DELETE http://localhost:3000/groups/d349fce5-b0c9-420d-8f56-246c1e637a21/likes 
+DELETE http://localhost:3000/groups/17f780af-8946-4692-9a9e-409c36558129/likes 
 
 ### 모든 그룹 태그 (중복 제거함)
 GET http://localhost:3000/tag
 Content-Type: application/json
 
 ### 특정 태그 상세 정보 (태그 ID 필요함)
-GET http://localhost:3000/tag/c0e07f03-b6b6-47c2-962e-7a7aec611a0a
+GET http://localhost:3000/tag/29621d88-f7ae-4dd6-877c-9d025938871e
 Content-Type: application/json
 
 ### 그룹 삭제
-DELETE  http://localhost:3000/groups/e8711f7d-ea0f-40ea-96bf-61062c6d921f
+DELETE  http://localhost:3000/groups/17f780af-8946-4692-9a9e-409c36558129
 Content-Type: application/json
 
 {
-  "ownerNickname": "testUser7",
+  "ownerNickname": "testUser12",
   "ownerPassword": "password123"
 }
 
 ### 그룹에 새 멤버 참여
-POST  http://localhost:3000/groups/d349fce5-b0c9-420d-8f56-246c1e637a21/members
+POST  http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844/members
 Content-Type: application/json
 
 {
-  "nickName": "닉네임22",
+  "nickName": "닉네임223",
   "password": "hello7!"
 }
 
 ### 그룹에 속한 멤버 상세조회
-GET  http://localhost:3000/groups/d349fce5-b0c9-420d-8f56-246c1e637a21/members
+GET  http://localhost:3000/groups/d6eecd39-228f-4989-96a9-fd6156a4d844/members
