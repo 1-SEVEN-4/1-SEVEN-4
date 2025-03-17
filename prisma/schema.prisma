@@ -66,14 +66,16 @@ model Record {
   id          String   @id @default(uuid())
   sports      Sports
   description String
+  startTime   DateTime
+  endTime     DateTime
   time        Int
   distance    Int
   photo       String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  memberId    String
+  memberId    String?
   groupId     String
-  members     Members  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  members     Members? @relation(fields: [memberId], references: [id], onDelete: Cascade)
   groups      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
 }
 
